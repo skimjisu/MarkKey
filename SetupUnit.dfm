@@ -2,9 +2,9 @@ object SetupForm: TSetupForm
   Left = 0
   Top = 0
   BorderIcons = [biMinimize]
-  BorderStyle = bsNone
-  ClientHeight = 678
-  ClientWidth = 866
+  BorderStyle = bsSizeToolWin
+  ClientHeight = 499
+  ClientWidth = 870
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,97 +20,14 @@ object SetupForm: TSetupForm
     AlignWithMargins = True
     Left = 87
     Top = 3
-    Width = 776
-    Height = 672
+    Width = 780
+    Height = 493
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     OnMouseDown = FormMouseDown
-    object SpeedButton2: TSpeedButton
-      Left = 54
-      Top = 614
-      Width = 170
-      Height = 34
-      Caption = #45803#44592
-      Glyph.Data = {
-        36040000424D3604000000000000360000002800000010000000100000000100
-        20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF000000B0000000B0000000B0000000B0960000
-        B0FF0000B0FF0000B0960000B0000000B0000000B000FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF000000B0000000B0000000B0960000B0FF6464
-        FEFF6464FEFF0000B0FF0000B0960000B0000000B000FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF000000B0000000B0960000B0FF6464FEFF0000
-        B0FF0000B0FF6464FEFF0000B0FF0000B0960000B000FFFFFF00FFFFFF00FFFF
-        FF00BE7654FFBE7654FFBE7654FF4E318AFF0000B0FF5B5BF7FF0000B0FFBE76
-        54FF0000B0FF0000B0FF5B5BF7FF0000B0FF0000B096FFFFFF00FFFFFF00BE76
-        54FFDC8B65FFBEBEBEFFDC8B65FF0000B0FF4F4FECFF0000B0FFBEBEBEFF0000
-        B0FF4F4FECFF0000B0FF0000B0FF4F4FECFF0000B0FFFFFFFF00BE7654FFDC8B
-        65FFDC8B65FFD6D6D6FFDC8B65FF0000B0FF4242E1FF0000B0FF0000B0FF4242
-        E1FF0000B0FFBE7654FF0000B0FF4242E1FF0000B0FFFFFFFF00BE7654FFDC8B
-        65FFDC8B65FFEEEEEEFFDC8B65FF5B3991FF0000B0FF3939DAFF0000B0FF0000
-        B0FFDC8B65FF0000B0FF3939DAFF0000B0FF0000B096FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFFFFFFFFFFFFFFFFFF6969D1FF0000B0FF3939DAFF0000
-        B0FF0000B0FF3939DAFF0000B0FF0000B0960000B000FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFDC8B65FFDC8B65FFDC8B65FFDC8B65FF5B3991FF0000B0FF3939
-        DAFF3939DAFF0000B0FF0000B0960000B0000000B000FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6969D1FF0000
-        B0FF0000B0FF4E318AFF0000B0000000B0000000B000FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFF707070FF8C8C8CFFACACACFFACACACFF8C8C8BFFFFFF
-        FFFFDC8B65FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFDC8B65FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFF707070FF8C8C8CFFACACADFFACACACFF8C8C8CFFFFFF
-        FFFFDC8B65FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFDC8B65FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BE7654FFBE76
-        54FFBE7654FFBEBEBEFFBEBEBEFFBEBEBEFFBEBEBEFFBEBEBEFFBEBEBEFFBEBE
-        BEFFBE7654FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00}
-    end
-    object SpeedButton3: TSpeedButton
-      Left = 268
-      Top = 614
-      Width = 170
-      Height = 34
-      Caption = #45803#44592
-      Glyph.Data = {
-        36040000424D3604000000000000360000002800000010000000100000000100
-        20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF000000B0000000B0000000B0000000B0960000
-        B0FF0000B0FF0000B0960000B0000000B0000000B000FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF000000B0000000B0000000B0960000B0FF6464
-        FEFF6464FEFF0000B0FF0000B0960000B0000000B000FFFFFF00FFFFFF00FFFF
-        FF00FFFFFF00FFFFFF00FFFFFF000000B0000000B0960000B0FF6464FEFF0000
-        B0FF0000B0FF6464FEFF0000B0FF0000B0960000B000FFFFFF00FFFFFF00FFFF
-        FF00BE7654FFBE7654FFBE7654FF4E318AFF0000B0FF5B5BF7FF0000B0FFBE76
-        54FF0000B0FF0000B0FF5B5BF7FF0000B0FF0000B096FFFFFF00FFFFFF00BE76
-        54FFDC8B65FFBEBEBEFFDC8B65FF0000B0FF4F4FECFF0000B0FFBEBEBEFF0000
-        B0FF4F4FECFF0000B0FF0000B0FF4F4FECFF0000B0FFFFFFFF00BE7654FFDC8B
-        65FFDC8B65FFD6D6D6FFDC8B65FF0000B0FF4242E1FF0000B0FF0000B0FF4242
-        E1FF0000B0FFBE7654FF0000B0FF4242E1FF0000B0FFFFFFFF00BE7654FFDC8B
-        65FFDC8B65FFEEEEEEFFDC8B65FF5B3991FF0000B0FF3939DAFF0000B0FF0000
-        B0FFDC8B65FF0000B0FF3939DAFF0000B0FF0000B096FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFFFFFFFFFFFFFFFFFF6969D1FF0000B0FF3939DAFF0000
-        B0FF0000B0FF3939DAFF0000B0FF0000B0960000B000FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFDC8B65FFDC8B65FFDC8B65FFDC8B65FF5B3991FF0000B0FF3939
-        DAFF3939DAFF0000B0FF0000B0960000B0000000B000FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6969D1FF0000
-        B0FF0000B0FF4E318AFF0000B0000000B0000000B000FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFF707070FF8C8C8CFFACACACFFACACACFF8C8C8BFFFFFF
-        FFFFDC8B65FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFDC8B65FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFF707070FF8C8C8CFFACACADFFACACACFF8C8C8CFFFFFF
-        FFFFDC8B65FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BE7654FFDC8B
-        65FFDC8B65FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFFDC8B65FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00BE7654FFBE76
-        54FFBE7654FFBEBEBEFFBEBEBEFFBEBEBEFFBEBEBEFFBEBEBEFFBEBEBEFFBEBE
-        BEFFBE7654FFBE7654FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00}
-      OnClick = SpeedButton3Click
-    end
+    ExplicitWidth = 776
+    ExplicitHeight = 672
     object Panel10: TPanel
       Left = 517
       Top = 18
@@ -130,7 +47,7 @@ object SetupForm: TSetupForm
         Left = 16
         Top = 31
         Width = 233
-        Height = 538
+        Height = 428
         ImeName = 'Microsoft IME 2010'
         ItemHeight = 15
         TabOrder = 0
@@ -147,7 +64,7 @@ object SetupForm: TSetupForm
       OnMouseDown = FormMouseDown
       object Btn_Del: TSpeedButton
         Left = 115
-        Top = 529
+        Top = 416
         Width = 82
         Height = 43
         Caption = #49440#53469#49325#51228
@@ -190,7 +107,7 @@ object SetupForm: TSetupForm
       end
       object Btn_Insert: TSpeedButton
         Left = 18
-        Top = 529
+        Top = 416
         Width = 61
         Height = 43
         Caption = #52628#44032
@@ -240,7 +157,7 @@ object SetupForm: TSetupForm
       end
       object Label1: TLabel
         Left = 18
-        Top = 374
+        Top = 271
         Width = 51
         Height = 15
         Caption = #48260#53948' '#50948#52824
@@ -249,7 +166,7 @@ object SetupForm: TSetupForm
         Left = 18
         Top = 31
         Width = 180
-        Height = 332
+        Height = 234
         Ctl3D = True
         ImeName = 'Microsoft Office IME 2007'
         ItemHeight = 15
@@ -259,7 +176,7 @@ object SetupForm: TSetupForm
       end
       object LB_LocList: TListBox
         Left = 18
-        Top = 395
+        Top = 292
         Width = 180
         Height = 118
         ImeName = 'Microsoft Office IME 2007'
@@ -268,7 +185,7 @@ object SetupForm: TSetupForm
       end
     end
     object Panel9: TPanel
-      Left = 258
+      Left = 250
       Top = 18
       Width = 263
       Height = 590
@@ -276,7 +193,7 @@ object SetupForm: TSetupForm
       TabOrder = 2
       object Btn_ChoiceFile: TSpeedButton
         Left = 216
-        Top = 257
+        Top = 210
         Width = 23
         Height = 23
         Glyph.Data = {
@@ -317,7 +234,7 @@ object SetupForm: TSetupForm
       end
       object Exe_ChoiceFile: TSpeedButton
         Left = 216
-        Top = 308
+        Top = 252
         Width = 26
         Height = 25
         Glyph.Data = {
@@ -358,7 +275,7 @@ object SetupForm: TSetupForm
       end
       object Btn_Save: TSpeedButton
         Left = 9
-        Top = 472
+        Top = 395
         Width = 88
         Height = 64
         Caption = #49688#51221
@@ -400,7 +317,7 @@ object SetupForm: TSetupForm
       end
       object SpeedButton1: TSpeedButton
         Left = 152
-        Top = 472
+        Top = 395
         Width = 89
         Height = 64
         Caption = #49444#51221
@@ -433,8 +350,8 @@ object SetupForm: TSetupForm
           D8D8D6D6D6D3D3D3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
       end
       object Btn_Change: TSpeedButton
-        Left = 144
-        Top = 542
+        Left = 170
+        Top = 360
         Width = 71
         Height = 25
         Caption = #49688#51221
@@ -475,8 +392,8 @@ object SetupForm: TSetupForm
           D59BD7D7D867D8D8D937D8D8D912D8D8D900D7D7D800D5D5D600}
       end
       object Ltn_List_Change: TSpeedButton
-        Left = 57
-        Top = 542
+        Left = 161
+        Top = 329
         Width = 81
         Height = 25
         Caption = #50948#52824#49688#51221
@@ -518,7 +435,7 @@ object SetupForm: TSetupForm
       end
       object ED_Hint: TLabeledEdit
         Left = 9
-        Top = 86
+        Top = 78
         Width = 233
         Height = 23
         EditLabel.Width = 63
@@ -540,7 +457,7 @@ object SetupForm: TSetupForm
       end
       object Type_Box: TGroupBox
         Left = 9
-        Top = 141
+        Top = 107
         Width = 233
         Height = 77
         Caption = #53440#51077
@@ -717,6 +634,7 @@ object SetupForm: TSetupForm
           ShowHint = True
           TabOrder = 0
           TabStop = True
+          OnClick = RB_TypeClick
         end
         object RB_Type1: TRadioButton
           Left = 152
@@ -725,6 +643,7 @@ object SetupForm: TSetupForm
           Height = 16
           Caption = #51064#53552#45367
           TabOrder = 1
+          OnClick = RB_TypeClick
         end
         object RB_Type2: TRadioButton
           Left = 35
@@ -733,6 +652,7 @@ object SetupForm: TSetupForm
           Height = 17
           Caption = #54028#51068' '#48143' '#54260#45908
           TabOrder = 2
+          OnClick = RB_TypeClick
         end
         object RB_Type3: TRadioButton
           Left = 152
@@ -741,11 +661,12 @@ object SetupForm: TSetupForm
           Height = 17
           Caption = #54532#47196#49464#49828
           TabOrder = 3
+          OnClick = RB_TypeClick
         end
       end
       object ED_LinkName: TLabeledEdit
         Left = 9
-        Top = 257
+        Top = 210
         Width = 201
         Height = 23
         EditLabel.Width = 24
@@ -756,7 +677,7 @@ object SetupForm: TSetupForm
       end
       object ED_ExeName: TLabeledEdit
         Left = 9
-        Top = 310
+        Top = 254
         Width = 201
         Height = 23
         EditLabel.Width = 24
@@ -767,7 +688,7 @@ object SetupForm: TSetupForm
       end
       object GroupBox5: TGroupBox
         Left = 9
-        Top = 349
+        Top = 283
         Width = 233
         Height = 40
         Caption = #53804#47749#46020' '#51312#51208
@@ -786,7 +707,7 @@ object SetupForm: TSetupForm
       end
       object HotKey: TCheckBox
         Left = 9
-        Top = 402
+        Top = 329
         Width = 114
         Height = 17
         Caption = ' '#45800#52629#53412' '#51088#46041#49892#54665
@@ -794,7 +715,7 @@ object SetupForm: TSetupForm
       end
       object RegStart: TCheckBox
         Left = 9
-        Top = 433
+        Top = 360
         Width = 149
         Height = 17
         Caption = ' '#50952#46020#50864' '#49892#54665#49884' '#51088#46041#49892#54665
@@ -806,13 +727,14 @@ object SetupForm: TSetupForm
     Left = 0
     Top = 0
     Width = 84
-    Height = 678
+    Height = 499
     Align = alLeft
     BevelOuter = bvNone
     Color = 4471089
     ParentBackground = False
     TabOrder = 1
     OnMouseDown = FormMouseDown
+    ExplicitHeight = 678
     object Image6: TImage
       Left = 0
       Top = 137
@@ -972,7 +894,7 @@ object SetupForm: TSetupForm
     end
     object Image9: TImage
       Left = 0
-      Top = 566
+      Top = 387
       Width = 84
       Height = 57
       Align = alBottom
@@ -1063,7 +985,7 @@ object SetupForm: TSetupForm
       Tag = 4
       AlignWithMargins = True
       Left = 3
-      Top = 626
+      Top = 447
       Width = 78
       Height = 49
       Align = alBottom
@@ -1077,7 +999,8 @@ object SetupForm: TSetupForm
       Font.Style = []
       ParentFont = False
       OnClick = Btn_CloseClick
-      ExplicitTop = 492
+      ExplicitLeft = 6
+      ExplicitTop = 464
     end
     object Image10: TImage
       Left = 0
@@ -1140,12 +1063,12 @@ object SetupForm: TSetupForm
     end
   end
   object OpenDialog1: TOpenDialog
-    Left = 112
-    Top = 277
+    Left = 24
+    Top = 421
   end
   object OpenDialog2: TOpenDialog
     Filter = 'EXE|*.exe'
-    Left = 152
-    Top = 288
+    Left = 32
+    Top = 360
   end
 end

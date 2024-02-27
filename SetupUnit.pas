@@ -32,8 +32,6 @@ type
     RB_Type3: TRadioButton;
     StyleList: TListBox;
     SpeedButton1: TSpeedButton;
-    SpeedButton2: TSpeedButton;
-    SpeedButton3: TSpeedButton;
     RegStart: TCheckBox;
     HotKey: TCheckBox;
     Panel4: TPanel;
@@ -59,7 +57,7 @@ type
     Label10: TLabel;
     procedure FormShow(Sender: TObject);
     procedure Btn_CloseClick(Sender: TObject);
-    procedure SpeedButton3Click(Sender: TObject);
+
     procedure ChangeLabelOnMouseEnter(Sender: TObject);
     procedure ChangeLabelOnMouseLeave(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -68,6 +66,7 @@ type
     procedure Btn_InsertClick(Sender: TObject);
     procedure Btn_DelClick(Sender: TObject);
     procedure LB_BtnListClick(Sender: TObject);
+    procedure RB_TypeClick(Sender: TObject);
 
 
   private
@@ -237,12 +236,18 @@ end;
 
 procedure TSetupForm.LB_BtnListClick(Sender: TObject);
 var
-  Item: TButtonItem;
+  Item : TButtonItem;
 begin
   if LB_BtnList.ItemIndex = -1 then Exit;
 
   Item := TButtonItem(LB_BtnList.Items.Objects[LB_BtnList.ItemIndex]);
   AssignItemToForm(Item);
+end;
+
+procedure TSetupForm.RB_TypeClick(Sender: TObject);
+begin
+  Btn_ChoiceFile.Visible := not SameText((Sender as TRadioButton).Name, 'RB_Type1');
+ // ExeGroup.Visible := SameText((Sender as TRadioButton).Name, 'RB_Type3');
 end;
 
 procedure TSetupForm.AssignItemToForm(Item: TButtonItem);
@@ -349,9 +354,5 @@ begin
   ini.WriteInteger(Item.Caption, LOC_STR, Item.Loc);
 end;
 
-procedure TSetupForm.SpeedButton3Click(Sender: TObject);
-begin
-close;
-end;
 
 end.
