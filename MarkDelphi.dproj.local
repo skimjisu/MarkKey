@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.545,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.848,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.248,C:\Users\KDHS\Desktop\마크앱_델파이\SetupUnit.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.427,C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\AddUnit.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.651,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.427,C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas=C:\Users\KDHS\Desktop\마크앱_델파이\AddUnit.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.299,C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Common.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.420,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.090,C:\Users\KDHS\Desktop\마크앱_델파이\Project8.dproj=C:\Users\KDHS\Desktop\마크앱_델파이\MarkDelphi.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.409,C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Unit8.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.114,=C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Unit8.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.156,C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.pas=C:\Users\KDHS\Desktop\마크앱_델파이\MainUnit.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.156,C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\MainUnit.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.248,C:\Users\KDHS\Desktop\마크앱_델파이\SetupUnit.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.409,C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Unit8.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.656,C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Project8.dproj=C:\Users\KDHS\Desktop\마크앱_델파이\Project8.dproj</Transaction>
+  </Transactions>
+</BorlandProject>
