@@ -66,6 +66,8 @@ type
 
     procedure FormMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure Btn_InsertClick(Sender: TObject);
+    procedure Btn_DelClick(Sender: TObject);
+    procedure LB_BtnListClick(Sender: TObject);
 
 
   private
@@ -81,7 +83,9 @@ type
     function CreateButtonItem: TButtonItem;
     function GetType(SetupAddForm: TAddForm): Integer;
     procedure WriteToIni(Item: TButtonItem);
-
+    procedure AssignItemToForm(Item: TButtonItem);
+    procedure CheckRadioButton(ItemType: Integer);
+    procedure ClearAllEditText;
   end;
 
 var
@@ -91,10 +95,6 @@ implementation
 
 {$R *.dfm}
 
-procedure TSetupForm.Btn_CloseClick(Sender: TObject);
-begin
-  close;
-end;
 
 procedure TSetupForm.ChangeLabelOnMouseEnter(Sender: TObject);
 begin
@@ -235,6 +235,84 @@ begin
   end;
 end;
 
+procedure TSetupForm.LB_BtnListClick(Sender: TObject);
+var
+  Item: TButtonItem;
+begin
+  if LB_BtnList.ItemIndex = -1 then Exit;
+
+  Item := TButtonItem(LB_BtnList.Items.Objects[LB_BtnList.ItemIndex]);
+  AssignItemToForm(Item);
+end;
+
+procedure TSetupForm.AssignItemToForm(Item: TButtonItem);
+begin
+  ED_Name.Text          := Item.Caption;
+  ED_Hint.Text          := Item.Hint;
+  ED_LinkName.Text      := Item.Link;
+  ED_ExeName.Text       := Item.Exe;
+  LB_LocList.ItemIndex  := Item.Loc;
+  CheckRadioButton(Item.iType);
+end;
+
+procedure TSetupForm.CheckRadioButton(ItemType: Integer);
+begin
+  case ItemType of
+    0: RB_Type0.Checked   := True;
+    1: RB_Type1.Checked   := True;
+    2: RB_Type2.Checked   := True;
+    3: RB_Type3.Checked   := True;
+    else RB_Type0.Checked := True;
+  end;
+end;
+
+procedure TSetupForm.Btn_DelClick(Sender: TObject);
+var
+  Item: TButtonItem;
+begin
+  if LB_BtnList.ItemIndex = -1 then Exit;
+
+  Item := TButtonItem(LB_BtnList.Items.Objects[LB_BtnList.ItemIndex]);
+  ini.EraseSection(Item.Caption);
+  LB_BtnList.Items.Delete(LB_BtnList.ItemIndex);
+end;
+
+procedure TSetupForm.Btn_CloseClick(Sender: TObject);
+var
+  Item : TButtonItem;
+  idx  : Integer;
+begin
+  ini.WriteBool(SETUP_SEC_STR, 'WriteReg', RegStart.Checked);
+  ini.WriteBool(SETUP_SEC_STR, 'WriteHotKey', HotKey.Checked);
+
+  // If there is a selected item in the list box, delete it
+{
+    idx := LB_BtnList.ItemIndex;
+    if idx <> -1 then
+    begin
+      Item := TButtonItem(LB_BtnList.Items.Objects[idx]);
+      ini.EraseSection(Item.Caption);
+      LB_BtnList.Items.Delete(idx);
+      LB_BtnList.ItemIndex := -1;
+    end;
+}
+  ClearAllEditText;
+  Close;
+end;
+
+procedure TSetupForm.ClearAllEditText;
+var
+  Edits : array[1..4] of TLabeledEdit;
+  I     : Integer;
+begin
+  Edits[1] := ED_LinkName;
+  Edits[2] := ED_Hint;
+  Edits[3] := ED_Name;
+  Edits[4] := ED_ExeName;
+
+  for I := 1 to 4 do Edits[I].Clear;
+end;
+
 function TSetupForm.CreateButtonItem: TButtonItem;
 begin
   Result            := TButtonItem.Create;
@@ -270,8 +348,6 @@ begin
   ini.WriteInteger(Item.Caption, TYPE_STR, Item.iType);
   ini.WriteInteger(Item.Caption, LOC_STR, Item.Loc);
 end;
-
-
 
 procedure TSetupForm.SpeedButton3Click(Sender: TObject);
 begin
