@@ -4,8 +4,8 @@ object AddForm: TAddForm
   BorderIcons = []
   BorderStyle = bsNone
   Caption = 'AddForm'
-  ClientHeight = 482
-  ClientWidth = 325
+  ClientHeight = 474
+  ClientWidth = 321
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,12 +19,12 @@ object AddForm: TAddForm
   object AddPanel: TPanel
     Left = 0
     Top = 0
-    Width = 325
-    Height = 482
+    Width = 321
+    Height = 474
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 290
-    ExplicitHeight = 415
+    ExplicitWidth = 296
+    ExplicitHeight = 427
     object Btn_AddOK: TSpeedButton
       Left = 152
       Top = 435

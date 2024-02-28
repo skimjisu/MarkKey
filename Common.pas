@@ -11,7 +11,7 @@ type
     Hint      : string;
     Link      : string;
     Exe       : string;
-    iType  : Integer;
+    iType     : Integer;
     Loc       : Integer;
     Idx       : Integer;
   end;
@@ -67,24 +67,23 @@ end;
 
 function BrowseFolder(hwnd: HWND; Title: string; Folder: string): string;
 var
-  Info: BROWSEINFO;
-  IDList: PItemIDList;
-  s: array[0..255] of Char;
+  Info   : BROWSEINFO;
+  IDList : PItemIDList;
+  s      : array[0..255] of Char;
   ResultStr: array[0..1023] of Char;
 begin
   ZeroMemory(@Info, SizeOf(Info));
-  Info.hwndOwner := hwnd;
+  Info.hwndOwner        := hwnd;
 
-  Info.pidlRoot := nil;
+  Info.pidlRoot         := nil;
   StrPCopy(s, Title);
-  Info.lpszTitle := s;
-  Info.ulFlags := BIF_RETURNONLYFSDIRS or BIF_USENEWUI or BIF_NEWDIALOGSTYLE;
-  if Length(Folder) > 0 then
-    StrPCopy(ResultStr, Folder);
-  Info.lParam := LPARAM(@ResultStr);
-  Info.lpfn := @BrowseCallbackProc;
+  Info.lpszTitle        := s;
+  Info.ulFlags          := BIF_RETURNONLYFSDIRS or BIF_USENEWUI or BIF_NEWDIALOGSTYLE;
+  if Length(Folder) > 0 then StrPCopy(ResultStr, Folder);
+  Info.lParam           := LPARAM(@ResultStr);
+  Info.lpfn             := @BrowseCallbackProc;
 
-  IDList := SHBrowseForFolder(Info);
+  IDList                := SHBrowseForFolder(Info);
 
   if IDList <> nil then
   begin
@@ -92,9 +91,7 @@ begin
     SHGetPathFromIDList(IDList, ResultStr);
     CoTaskMemFree(IDList);
   end
-  else
-    StrPCopy(ResultStr, '');
-
+  else StrPCopy(ResultStr, '');
   Result := string(ResultStr);
 end;
 
