@@ -1,24 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899-12-30 00:00:00.000.248,C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\SetupUnit.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.156,C:\Users\KDHS\Desktop\마크앱_델파이\MainUnit.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.156,C:\Users\KDHS\Desktop\마크앱_델파이\MainUnit.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.427,C:\Users\KDHS\Desktop\마크앱_델파이\AddUnit.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.545,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.420,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.651,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.248,C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas=C:\Users\KDHS\Desktop\마크앱_델파이\SetupUnit.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.427,C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas=C:\Users\KDHS\Desktop\마크앱_델파이\AddUnit.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.427,C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\AddUnit.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.248,C:\Users\KDHS\Desktop\마크앱_델파이\SetupUnit.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.656,C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Project8.dproj=C:\Users\KDHS\Desktop\마크앱_델파이\Project8.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.090,C:\Users\KDHS\Desktop\마크앱_델파이\Project8.dproj=C:\Users\KDHS\Desktop\마크앱_델파이\MarkDelphi.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.299,C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Common.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.848,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.409,C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.dfm=C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Unit8.dfm</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.090,C:\Users\KDHS\Desktop\마크앱_델파이\MarkDelphi.dproj=C:\Users\KDHS\Desktop\마크앱_델파이\Project8.dproj</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.299,C:\Users\KDHS\Desktop\마크앱_델파이\Common.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.409,C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.pas=C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Unit8.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.651,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.420,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.545,=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.993,C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\Unit2.pas=C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\RenameUnit.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.958,=C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\Unit2.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.156,C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\MainUnit.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.409,C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Unit8.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.156,C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.pas=C:\Users\KDHS\Desktop\마크앱_델파이\MainUnit.pas</Transaction>
     <Transaction>1899-12-30 00:00:00.000.114,=C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Unit8.pas</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.656,C:\Users\KDHS\Desktop\마크앱_델파이\Project8.dproj=C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Project8.dproj</Transaction>
-    <Transaction>1899-12-30 00:00:00.000.427,C:\Users\KDHS\Desktop\마크앱_델파이\AddUnit.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.dfm</Transaction>
-    <Transaction>2024-02-28 16:12:41.958,=C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\Unit2.pas</Transaction>
-    <Transaction>2024-02-28 16:20:27.993,C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\RenameUnit.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\Unit2.dfm</Transaction>
-    <Transaction>2024-02-28 16:20:27.993,C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\RenameUnit.pas=C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\Unit2.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.409,C:\Users\KDHS\Documents\Embarcadero\Studio\Projects\Unit8.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Unit8.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.993,C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\Unit2.dfm=C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\RenameUnit.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.248,C:\Users\KDHS\Desktop\마크앱_델파이\SetupUnit.pas=C:\Users\KDHS\Desktop\마크앱_델파이\Unit1.pas</Transaction>
+    <Transaction>2024-02-28 22:16:23.585,=C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\img\main.png</Transaction>
+    <Transaction>2024-02-28 22:16:23.600,=C:\Users\KDHS\Desktop\마크앱_델파이\MarkKey\img\setup.png</Transaction>
   </Transactions>
 </BorlandProject>

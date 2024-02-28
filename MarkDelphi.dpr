@@ -1,5 +1,7 @@
 program MarkDelphi;
 
+{$R *.dres}
+
 uses
   Vcl.Forms,
   MainUnit in 'MainUnit.pas' {MainForm},
