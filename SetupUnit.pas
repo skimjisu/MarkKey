@@ -441,6 +441,7 @@ begin
   end;
 end;
 
+//
 procedure TSetupForm.UpdateButtonType(Button: TButtonItem);
 begin
   if SetupForm.RB_Type0.Checked then Button.iType := 0;
