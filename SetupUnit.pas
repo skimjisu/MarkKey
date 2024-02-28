@@ -5,7 +5,13 @@ interface
 uses
   Common, Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Buttons ,System.IniFiles,
-  Vcl.Mask, Vcl.Imaging.pngimage, AddUnit, Registry;
+  Vcl.Mask, Vcl.Imaging.pngimage, AddUnit, Registry, Vcl.Themes;
+
+type
+  THotKey = record
+    ID: Integer;
+    Key: Char;
+  end;
 
 type
   TRegistryUpdateType = (rutAdd, rutRemove);
@@ -59,6 +65,7 @@ type
     Label9: TLabel;
     Image10: TImage;
     Label10: TLabel;
+
     procedure FormShow(Sender: TObject);
     procedure Btn_CloseClick(Sender: TObject);
 
@@ -74,6 +81,12 @@ type
     procedure Btn_ChoiceFileClick(Sender: TObject);
     procedure Btn_ChangeClick(Sender: TObject);
     procedure RegStartClick(Sender: TObject);
+    procedure RegisterADD(Sender: TObject);
+    procedure TrackBar1Change(Sender: TObject);
+    procedure Exe_ChoiceFileClick(Sender: TObject);
+    procedure StyleListClick(Sender: TObject);
+    procedure ChangeSkin(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -82,6 +95,8 @@ type
     GB_CapList  : TStringList;
     ini         : TIniFile;
     IS_OK       : Boolean;
+    Reg         : Boolean;
+	  Key         : Boolean;
 
   public
     procedure ChangeLabel;
@@ -94,18 +109,31 @@ type
     function GetSelectedButton: TButtonItem;
     procedure UpdateButtonDetails(Button: TButtonItem);
     procedure UpdateButtonType(Button: TButtonItem);
-    procedure UpdateButtonLocationAndIndex(Button: TButtonItem);
+    procedure UpdateButtonLocIndex(Button: TButtonItem);
     procedure UpdateButtonList(Button: TButtonItem);
     procedure UpdateIniWithButtonDetails(Button: TButtonItem);
     procedure UpdateRegistry(const ValueName: string; const ValueData: string = ''; UpdateType: TRegistryUpdateType = rutAdd);
+    procedure UpdateHotKeys(Register: Boolean);
+
   end;
+
+  const
+    DEF_CTRL_Q = $1234;
+    DEF_CTRL_W = $1235;
+    DEF_CTRL_E = $1236;
+
 
 var
   SetupForm: TSetupForm;
 
+var
+  HotKeys: array of THotKey;
+
 implementation
 
 {$R *.dfm}
+
+
 
 
 procedure TSetupForm.ChangeLabelOnMouseEnter(Sender: TObject);
@@ -123,9 +151,18 @@ end;
 
 procedure TSetupForm.FormCreate(Sender: TObject);
 var
-  c: Integer;
+    i: Integer;
 begin
   ChangeLabel;
+
+  SetLength(HotKeys, 3);
+  HotKeys[0].ID := DEF_CTRL_Q; HotKeys[0].Key := 'Q';
+  HotKeys[1].ID := DEF_CTRL_W; HotKeys[1].Key := 'W';
+  HotKeys[2].ID := DEF_CTRL_E; HotKeys[2].Key := 'E';
+
+  Reg := False;
+  Key := False;
+  for i := 0 to High(TStyleManager.StyleNames) do StyleList.Items.Add(TStyleManager.StyleNames[i]);
 (*
     for c := 0 to PageControl1.PageCount - 1 do
     begin
@@ -133,6 +170,30 @@ begin
     end;
     self.PageControl1.ActivePageIndex := 0;
 *)
+end;
+
+procedure TSetupForm.UpdateHotKeys(Register: Boolean);
+var
+  HotKey: THotKey;
+begin
+  for HotKey in HotKeys do
+  begin
+    if Register then RegisterHotKey(Handle, HotKey.ID, MOD_CONTROL, Ord(HotKey.Key))
+    else UnregisterHotKey(Handle, HotKey.ID);
+  end;
+end;
+
+procedure TSetupForm.RegisterADD(Sender: TObject);
+begin
+  if HotKey.Checked then
+  begin
+    UpdateHotKeys(True);
+  end
+  else
+  begin
+    UpdateHotKeys(False);
+    ShowMessage('윈도우 실행시 자동실행이 해제되었습니다.');
+  end;
 end;
 
 procedure TSetupForm.FormMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -286,6 +347,21 @@ begin
   end;
 end;
 
+procedure TSetupForm.SpeedButton1Click(Sender: TObject);
+begin
+//
+end;
+
+procedure TSetupForm.StyleListClick(Sender: TObject);
+begin
+  //
+end;
+
+procedure TSetupForm.TrackBar1Change(Sender: TObject);
+begin
+  self.AlphaBlendValue := TrackBar1.Position;
+end;
+
 procedure TSetupForm.AssignItemToForm(Item: TButtonItem);
 begin
   ED_Name.Text          := Item.Caption;
@@ -307,6 +383,26 @@ begin
   end;
 end;
 
+procedure TSetupForm.ChangeSkin(Sender: TObject);
+var
+  ini: TIniFile;
+  Res: Integer;
+begin
+  Res := MessageDlg('스킨을 바꾸시겠습니까?' + #13#10 + '스킨을 적용합니다.', mtConfirmation, [mbYes, mbNo], 0);
+  if Res = mrYes then
+  begin
+    if StyleList.ItemIndex = -1 then
+      Exit;
+    ini := TIniFile.Create(ChangeFileExt(Application.ExeName, '.ini'));
+    try
+      TStyleManager.SetStyle(TStyleManager.StyleNames[StyleList.ItemIndex]);
+      ini.WriteString('main', 'StyleNames', GetStyleName);
+    finally
+      ini.Free;
+    end;
+  end;
+end;
+
 procedure TSetupForm.Btn_DelClick(Sender: TObject);
 var
   Item: TButtonItem;
@@ -319,9 +415,9 @@ begin
 end;
 
 procedure TSetupForm.Btn_CloseClick(Sender: TObject);
-var
-  Item : TButtonItem;
-  idx  : Integer;
+//var
+  //Item : TButtonItem;
+  //idx  : Integer;
 begin
   ini.WriteBool(SETUP_SEC_STR, 'WriteReg', RegStart.Checked);
   ini.WriteBool(SETUP_SEC_STR, 'WriteHotKey', HotKey.Checked);
@@ -371,6 +467,12 @@ begin
   end;
 end;
 
+procedure TSetupForm.Exe_ChoiceFileClick(Sender: TObject);
+begin
+  if not OpenDialog2.Execute then Exit;
+  ED_ExeName.Text := OpenDialog2.FileName;
+end;
+
 function TSetupForm.GetType(SetupAddForm: TAddForm): Integer;
 begin
   if AddForm.RB_Type0.Checked then Result := 0
@@ -415,7 +517,7 @@ begin
 
   UpdateButtonDetails(Item);
   UpdateButtonType(Item);
-  UpdateButtonLocationAndIndex(Item);
+  UpdateButtonLocIndex(Item);
 
   UpdateButtonList(Item);
   UpdateIniWithButtonDetails(Item);
@@ -450,7 +552,7 @@ begin
   if SetupForm.RB_Type3.Checked then Button.iType := 3;
 end;
 
-procedure TSetupForm.UpdateButtonLocationAndIndex(Button: TButtonItem);
+procedure TSetupForm.UpdateButtonLocIndex(Button: TButtonItem);
 begin
   Button.Loc := SetupForm.LB_LocList.ItemIndex;
   Button.Idx := 0;
