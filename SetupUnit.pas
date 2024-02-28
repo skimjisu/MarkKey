@@ -5,7 +5,7 @@ interface
 uses
   Common, Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Buttons ,System.IniFiles,
-  Vcl.Mask, Vcl.Imaging.pngimage, AddUnit, Registry, Vcl.Themes;
+  Vcl.Mask, Vcl.Imaging.pngimage, AddUnit, Registry, Vcl.Themes, RenameUnit, Vcl.Menus;
 
 type
   THotKey = record
@@ -65,6 +65,13 @@ type
     Label9: TLabel;
     Image10: TImage;
     Label10: TLabel;
+    PopupMenu1: TPopupMenu;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    N3: TMenuItem;
+    PopupMenu2: TPopupMenu;
+    N4: TMenuItem;
+    N5: TMenuItem;
 
     procedure FormShow(Sender: TObject);
     procedure Btn_CloseClick(Sender: TObject);
@@ -87,6 +94,11 @@ type
     procedure StyleListClick(Sender: TObject);
     procedure ChangeSkin(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure LB_LocListClick(Sender: TObject);
+    procedure LB_LocListDblClick(Sender: TObject);
+    procedure N2Click(Sender: TObject);
+    procedure N4Click(Sender: TObject);
+    procedure N5Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -316,6 +328,42 @@ begin
 
   Item := TButtonItem(LB_BtnList.Items.Objects[LB_BtnList.ItemIndex]);
   AssignItemToForm(Item);
+end;
+
+procedure TSetupForm.LB_LocListClick(Sender: TObject);
+begin
+///
+end;
+
+procedure TSetupForm.LB_LocListDblClick(Sender: TObject);
+var
+  i             : Integer;
+  SelectedItem  : string;
+begin
+  if LB_LocList.ItemIndex <> -1 then // 리스트박스에서 아이템이 선택되었는지 확인
+  begin
+    SelectedItem := LB_LocList.Items[LB_LocList.ItemIndex];
+    Typename := SelectedItem;
+    RenameForm.ShowModal;
+    //ShowMessage(SelectedItem);
+  end
+  else
+    ShowMessage('아이템이 선택되지 않았습니다.'); // 아이템이 선택되지 않았을 경우의 메시지
+end;
+
+procedure TSetupForm.N2Click(Sender: TObject);
+begin
+  LB_LocListDblClick(nil);
+end;
+
+procedure TSetupForm.N4Click(Sender: TObject);
+begin
+  Btn_InsertClick(nil);
+end;
+
+procedure TSetupForm.N5Click(Sender: TObject);
+begin
+  Btn_DelClick(nil);
 end;
 
 procedure TSetupForm.RB_TypeClick(Sender: TObject);

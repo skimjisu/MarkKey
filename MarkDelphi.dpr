@@ -8,7 +8,8 @@ uses
   AddUnit in 'AddUnit.pas' {AddForm},
   Vcl.Themes,
   Vcl.Styles,
-  Unit1 in 'Unit1.pas' {Form1};
+  Unit1 in 'Unit1.pas' {Form1},
+  RenameUnit in 'RenameUnit.pas' {RenameForm};
 
 {$R *.res}
 
@@ -20,5 +21,6 @@ begin
   Application.CreateForm(TSetupForm, SetupForm);
   Application.CreateForm(TAddForm, AddForm);
   Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TRenameForm, RenameForm);
   Application.Run;
 end.

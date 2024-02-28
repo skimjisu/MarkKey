@@ -26,7 +26,8 @@ object SetupForm: TSetupForm
     BevelOuter = bvNone
     TabOrder = 0
     OnMouseDown = FormMouseDown
-    ExplicitHeight = 672
+    ExplicitWidth = 770
+    ExplicitHeight = 660
     object Panel10: TPanel
       Left = 509
       Top = 18
@@ -205,6 +206,7 @@ object SetupForm: TSetupForm
         ImeName = 'Microsoft Office IME 2007'
         ItemHeight = 15
         ParentCtl3D = False
+        PopupMenu = PopupMenu2
         TabOrder = 0
         OnClick = LB_BtnListClick
       end
@@ -215,7 +217,10 @@ object SetupForm: TSetupForm
         Height = 118
         ImeName = 'Microsoft Office IME 2007'
         ItemHeight = 15
+        PopupMenu = PopupMenu1
         TabOrder = 1
+        OnClick = LB_LocListClick
+        OnDblClick = LB_LocListDblClick
       end
     end
     object Panel9: TPanel
@@ -709,16 +714,16 @@ object SetupForm: TSetupForm
         end
       end
       object HotKey: TCheckBox
-        Left = 9
-        Top = 329
+        Left = 15
+        Top = 337
         Width = 114
         Height = 17
         Caption = ' '#45800#52629#53412' '#51088#46041#49892#54665
         TabOrder = 6
       end
       object RegStart: TCheckBox
-        Left = 9
-        Top = 360
+        Left = 15
+        Top = 368
         Width = 149
         Height = 17
         Caption = ' '#50952#46020#50864' '#49892#54665#49884' '#51088#46041#49892#54665
@@ -1073,5 +1078,31 @@ object SetupForm: TSetupForm
     Filter = 'EXE|*.exe'
     Left = 32
     Top = 360
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 240
+    Top = 528
+    object N1: TMenuItem
+      Caption = #52628#44032
+    end
+    object N2: TMenuItem
+      Caption = #48320#44221
+      OnClick = N2Click
+    end
+    object N3: TMenuItem
+      Caption = #49325#51228
+    end
+  end
+  object PopupMenu2: TPopupMenu
+    Left = 328
+    Top = 184
+    object N4: TMenuItem
+      Caption = #52628#44032
+      OnClick = N4Click
+    end
+    object N5: TMenuItem
+      Caption = #49325#51228
+      OnClick = N5Click
+    end
   end
 end

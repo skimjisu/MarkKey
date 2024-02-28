@@ -11,6 +11,7 @@ type
     Hint      : string;
     Link      : string;
     Exe       : string;
+
     iType     : Integer;
     Loc       : Integer;
     Idx       : Integer;
@@ -23,8 +24,12 @@ const
   EXE_STR  = '경로';
   LOC_STR  = '위치';
 
+
   SETUP_SEC_STR = 'main';
   MAX_BTN_COUNT = 20;
+
+ var
+  Typename  : string;
 
   function GetSpecialFolderLocation(Handle: HWND; code: Integer): string;
   function BrowseCallbackProc(hwnd: HWND; uMsg: UINT; lParam, lpData: LPARAM): Integer; stdcall;
@@ -95,7 +100,7 @@ begin
   Result := string(ResultStr);
 end;
 
-(*
+(*  ini file 암호화 에정 코드
   procedure EncryptIniFile(const SourceFile, DestFile, Password: string);
   var
     Codec: TCodec;
@@ -141,7 +146,7 @@ end;
     end;
   end;
 
-  procedure DecryptIniFile(const SourceFile, DestFile, Password: string);
+  procedure DecryptIniFile(const SourceFile, DestFile, Password: string);  // ini file 복호화 에정 코드
   var
     Codec: TCodec;
     CryptographicLibrary: TCryptographicLibrary;
