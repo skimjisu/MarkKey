@@ -104,7 +104,7 @@ implementation
 {$R *.dfm}
 
 uses SetupUnit;
-
+//
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   RestoreApplication();
