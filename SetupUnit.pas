@@ -396,7 +396,7 @@ begin
     ini := TIniFile.Create(ChangeFileExt(Application.ExeName, '.ini'));
     try
       TStyleManager.SetStyle(TStyleManager.StyleNames[StyleList.ItemIndex]);
-      ini.WriteString('main', 'StyleNames', GetStyleName);
+      ini.WriteString('main', 'StyleNames', TStyleManager.StyleNames[StyleList.ItemIndex]);
     finally
       ini.Free;
     end;

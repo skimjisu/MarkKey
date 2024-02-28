@@ -3,7 +3,7 @@ object SetupForm: TSetupForm
   Top = 0
   BorderIcons = [biMinimize]
   BorderStyle = bsSizeToolWin
-  ClientHeight = 678
+  ClientHeight = 499
   ClientWidth = 866
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,11 +21,12 @@ object SetupForm: TSetupForm
     Left = 87
     Top = 3
     Width = 776
-    Height = 672
+    Height = 493
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     OnMouseDown = FormMouseDown
+    ExplicitHeight = 672
     object Panel10: TPanel
       Left = 509
       Top = 18
@@ -43,10 +44,10 @@ object SetupForm: TSetupForm
       end
       object SpeedButton1: TSpeedButton
         Left = 10
-        Top = 391
+        Top = 408
         Width = 233
-        Height = 64
-        Caption = #49444#51221
+        Height = 47
+        Caption = #49828#53416#49444#51221
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
           1800000000000003000012170000121700000000000000000000FFFFFFFFFFFF
@@ -97,9 +98,9 @@ object SetupForm: TSetupForm
       OnMouseDown = FormMouseDown
       object Btn_Del: TSpeedButton
         Left = 115
-        Top = 416
+        Top = 424
         Width = 82
-        Height = 43
+        Height = 35
         Caption = #49440#53469#49325#51228
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
@@ -140,10 +141,10 @@ object SetupForm: TSetupForm
       end
       object Btn_Insert: TSpeedButton
         Left = 18
-        Top = 416
-        Width = 61
-        Height = 43
-        Caption = #52628#44032
+        Top = 424
+        Width = 82
+        Height = 35
+        Caption = #48260#53948#52628#44032
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           20000000000000040000130B0000130B000000000000000000009B6F3A15D3C6
@@ -218,7 +219,7 @@ object SetupForm: TSetupForm
       end
     end
     object Panel9: TPanel
-      Left = 250
+      Left = 249
       Top = 18
       Width = 263
       Height = 590
@@ -310,10 +311,10 @@ object SetupForm: TSetupForm
       end
       object Btn_Save: TSpeedButton
         Left = 9
-        Top = 395
-        Width = 88
-        Height = 64
-        Caption = #49688#51221
+        Top = 408
+        Width = 232
+        Height = 51
+        Caption = #48260#53948#49688#51221
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           20000000000000040000C40E0000C40E00000000000000000000FFFFFF00FFFF
@@ -730,7 +731,7 @@ object SetupForm: TSetupForm
     Left = 0
     Top = 0
     Width = 84
-    Height = 678
+    Height = 499
     Align = alLeft
     BevelOuter = bvNone
     Color = 4471089
@@ -897,7 +898,7 @@ object SetupForm: TSetupForm
     end
     object Image9: TImage
       Left = 0
-      Top = 596
+      Top = 417
       Width = 84
       Height = 57
       Align = alBottom
@@ -988,7 +989,7 @@ object SetupForm: TSetupForm
       Tag = 4
       AlignWithMargins = True
       Left = 3
-      Top = 656
+      Top = 477
       Width = 78
       Height = 19
       Align = alBottom
@@ -1002,6 +1003,7 @@ object SetupForm: TSetupForm
       Font.Style = []
       ParentFont = False
       OnClick = Btn_CloseClick
+      ExplicitTop = 656
     end
     object Image10: TImage
       Left = 0
