@@ -4,7 +4,11 @@ interface
 
 uses
   Common, Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Buttons ,System.IniFiles, Vcl.Mask, Vcl.Imaging.pngimage, AddUnit;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.Buttons ,System.IniFiles,
+  Vcl.Mask, Vcl.Imaging.pngimage, AddUnit, Registry;
+
+type
+  TRegistryUpdateType = (rutAdd, rutRemove);
 
 type
   TSetupForm = class(TForm)
@@ -67,7 +71,9 @@ type
     procedure Btn_DelClick(Sender: TObject);
     procedure LB_BtnListClick(Sender: TObject);
     procedure RB_TypeClick(Sender: TObject);
-
+    procedure Btn_ChoiceFileClick(Sender: TObject);
+    procedure Btn_ChangeClick(Sender: TObject);
+    procedure RegStartClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -85,6 +91,13 @@ type
     procedure AssignItemToForm(Item: TButtonItem);
     procedure CheckRadioButton(ItemType: Integer);
     procedure ClearAllEditText;
+    function GetSelectedButton: TButtonItem;
+    procedure UpdateButtonDetails(Button: TButtonItem);
+    procedure UpdateButtonType(Button: TButtonItem);
+    procedure UpdateButtonLocationAndIndex(Button: TButtonItem);
+    procedure UpdateButtonList(Button: TButtonItem);
+    procedure UpdateIniWithButtonDetails(Button: TButtonItem);
+    procedure UpdateRegistry(const ValueName: string; const ValueData: string = ''; UpdateType: TRegistryUpdateType = rutAdd);
   end;
 
 var
@@ -250,6 +263,29 @@ begin
  // ExeGroup.Visible := SameText((Sender as TRadioButton).Name, 'RB_Type3');
 end;
 
+procedure TSetupForm.RegStartClick(Sender: TObject);
+var
+  p  : TCheckBox;
+  reg: TRegistry;
+begin
+  p   := Sender as TCheckBox;
+  reg := TRegistry.Create(KEY_WRITE);
+  try
+    reg.RootKey := HKEY_LOCAL_MACHINE;
+    if reg.OpenKey('Software\Microsoft\Windows\CurrentVersion\Run', False) then
+    begin
+      if p.Checked then reg.WriteString('MarkDelphi', Application.ExeName)
+      else
+      begin reg.DeleteValue('MarkDelphi');
+        ShowMessage('윈도우 실행시 자동실행이 해제되었습니다.');
+      end;
+    end;
+  finally
+    reg.CloseKey;
+    reg.Free;
+  end;
+end;
+
 procedure TSetupForm.AssignItemToForm(Item: TButtonItem);
 begin
   ED_Name.Text          := Item.Caption;
@@ -307,8 +343,8 @@ end;
 
 procedure TSetupForm.ClearAllEditText;
 var
-  Edits : array[1..4] of TLabeledEdit;
-  I     : Integer;
+  Edits    : array[1..4] of TLabeledEdit;
+  I        : Integer;
 begin
   Edits[1] := ED_LinkName;
   Edits[2] := ED_Hint;
@@ -344,15 +380,117 @@ begin
   else Result := -1;
 end;
 
-
-procedure TSetupForm.WriteToIni(Item: TButtonItem);
+procedure TSetupForm.Btn_ChoiceFileClick(Sender: TObject);
+var
+  Dir: string;
 begin
-  ini.WriteString(Item.Caption, HINT_STR, Item.Hint);
-  ini.WriteString(Item.Caption, LINK_STR, Item.Link);
-  ini.WriteString(Item.Caption, EXE_STR, Item.Exe);
-  ini.WriteInteger(Item.Caption, TYPE_STR, Item.iType);
-  ini.WriteInteger(Item.Caption, LOC_STR, Item.Loc);
+  if RB_Type2.Checked and not RB_Type0.Checked then
+  begin
+    Dir := BrowseFolder(Application.Handle, '폴더를 선택하세요.', '');
+    if not DirectoryExists(Dir) or (Dir = '') then Exit;
+    if Length(Dir) = 3 then SetLength(Dir, 2);
+    ED_LinkName.Text := Dir;
+  end
+  else if OpenDialog1.Execute then ED_LinkName.Text := OpenDialog1.FileName;
 end;
 
+procedure TSetupForm.WriteToIni(Item: TButtonItem);
+var
+  Caption : string;
+begin
+  Caption := Item.Caption;
+  ini.WriteString(Caption, HINT_STR, Item.Hint);
+  ini.WriteString(Caption, LINK_STR, Item.Link);
+  ini.WriteString(Caption, EXE_STR, Item.Exe);
+  ini.WriteInteger(Caption, TYPE_STR, Item.iType);
+  ini.WriteInteger(Caption, LOC_STR, Item.Loc);
+end;
+
+procedure TSetupForm.Btn_ChangeClick(Sender: TObject);
+var
+  Item: TButtonItem;
+begin
+  Item := GetSelectedButton;
+  if SetupForm.IS_OK then Item := TButtonItem.Create;
+
+  UpdateButtonDetails(Item);
+  UpdateButtonType(Item);
+  UpdateButtonLocationAndIndex(Item);
+
+  UpdateButtonList(Item);
+  UpdateIniWithButtonDetails(Item);
+
+  IS_OK := True;
+end;
+
+function TSetupForm.GetSelectedButton: TButtonItem;
+begin
+  Result                            := TButtonItem(LB_BtnList.Items.Objects[LB_BtnList.ItemIndex]);
+  ini.EraseSection(Result.Caption);
+  AddForm.LB_LocList.Items.Text     := GB_CapList.Text;
+end;
+
+procedure TSetupForm.UpdateButtonDetails(Button: TButtonItem);
+begin
+  with Button do
+  begin
+    Caption := SetupForm.ED_Name.Text;
+    Hint    := SetupForm.ED_Hint.Text;
+    Link    := SetupForm.ED_LinkName.Text;
+    Exe     := SetupForm.ED_ExeName.Text;
+  end;
+end;
+
+procedure TSetupForm.UpdateButtonType(Button: TButtonItem);
+begin
+  if SetupForm.RB_Type0.Checked then Button.iType := 0;
+  if SetupForm.RB_Type1.Checked then Button.iType := 1;
+  if SetupForm.RB_Type2.Checked then Button.iType := 2;
+  if SetupForm.RB_Type3.Checked then Button.iType := 3;
+end;
+
+procedure TSetupForm.UpdateButtonLocationAndIndex(Button: TButtonItem);
+begin
+  Button.Loc := SetupForm.LB_LocList.ItemIndex;
+  Button.Idx := 0;
+end;
+
+procedure TSetupForm.UpdateButtonList(Button: TButtonItem);
+begin
+  LB_BtnList.Items.Delete(LB_BtnList.ItemIndex);
+  LB_BtnList.Items.AddObject(Button.Caption, Button);
+end;
+
+procedure TSetupForm.UpdateIniWithButtonDetails(Button: TButtonItem);
+begin
+  with Button do
+  begin
+    ini.WriteString(Caption, HINT_STR, Hint);
+    ini.WriteString(Caption, LINK_STR, Link);
+    ini.WriteString(Caption, EXE_STR, Exe);
+    ini.WriteInteger(Caption, TYPE_STR, iType);
+    ini.WriteInteger(Caption, LOC_STR, Loc);
+  end;
+end;
+
+procedure TSetupForm.UpdateRegistry(const ValueName: string; const ValueData: string = ''; UpdateType: TRegistryUpdateType = rutAdd);
+var
+  reg : TRegistry;
+begin
+  reg := TRegistry.Create(KEY_WRITE);
+  try
+    reg.RootKey := HKEY_LOCAL_MACHINE;
+    if reg.OpenKey('Software\Microsoft\Windows\CurrentVersion\Run', False) then
+    begin
+      case UpdateType of
+        rutAdd: reg.WriteString(ValueName, ValueData);
+        rutRemove: reg.DeleteValue(ValueName);
+      end;
+    end;
+  finally
+    reg.CloseKey;
+    reg.Free;
+  end;
+end;
 
 end.

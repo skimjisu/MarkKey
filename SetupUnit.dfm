@@ -3,8 +3,8 @@ object SetupForm: TSetupForm
   Top = 0
   BorderIcons = [biMinimize]
   BorderStyle = bsSizeToolWin
-  ClientHeight = 499
-  ClientWidth = 870
+  ClientHeight = 504
+  ClientWidth = 866
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,16 +20,16 @@ object SetupForm: TSetupForm
     AlignWithMargins = True
     Left = 87
     Top = 3
-    Width = 780
-    Height = 493
+    Width = 776
+    Height = 498
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     OnMouseDown = FormMouseDown
-    ExplicitWidth = 776
-    ExplicitHeight = 672
+    ExplicitWidth = 770
+    ExplicitHeight = 660
     object Panel10: TPanel
-      Left = 517
+      Left = 509
       Top = 18
       Width = 266
       Height = 590
@@ -59,7 +59,6 @@ object SetupForm: TSetupForm
       Width = 217
       Height = 590
       BevelOuter = bvNone
-      Caption = 'Panel8'
       TabOrder = 1
       OnMouseDown = FormMouseDown
       object Btn_Del: TSpeedButton
@@ -231,6 +230,7 @@ object SetupForm: TSetupForm
           33FFEBB436FFEAB43B2AEAB43B00EAB43B00EAB43B00EAB43B007F4500007F46
           00008C591B058E5D211593652D2D987345489A795467A1825B87AB8751A7BA8D
           3AC5D19C2BD7E0AA3123DFA93100DFA93100DFA93100DFA93100}
+        OnClick = Btn_ChoiceFileClick
       end
       object Exe_ChoiceFile: TSpeedButton
         Left = 216
@@ -720,6 +720,7 @@ object SetupForm: TSetupForm
         Height = 17
         Caption = ' '#50952#46020#50864' '#49892#54665#49884' '#51088#46041#49892#54665
         TabOrder = 7
+        OnClick = RegStartClick
       end
     end
   end
@@ -727,14 +728,14 @@ object SetupForm: TSetupForm
     Left = 0
     Top = 0
     Width = 84
-    Height = 499
+    Height = 504
     Align = alLeft
     BevelOuter = bvNone
     Color = 4471089
     ParentBackground = False
     TabOrder = 1
     OnMouseDown = FormMouseDown
-    ExplicitHeight = 678
+    ExplicitHeight = 666
     object Image6: TImage
       Left = 0
       Top = 137
@@ -894,7 +895,7 @@ object SetupForm: TSetupForm
     end
     object Image9: TImage
       Left = 0
-      Top = 387
+      Top = 422
       Width = 84
       Height = 57
       Align = alBottom
@@ -985,9 +986,9 @@ object SetupForm: TSetupForm
       Tag = 4
       AlignWithMargins = True
       Left = 3
-      Top = 447
+      Top = 482
       Width = 78
-      Height = 49
+      Height = 19
       Align = alBottom
       Alignment = taCenter
       AutoSize = False
@@ -999,8 +1000,7 @@ object SetupForm: TSetupForm
       Font.Style = []
       ParentFont = False
       OnClick = Btn_CloseClick
-      ExplicitLeft = 6
-      ExplicitTop = 464
+      ExplicitTop = 656
     end
     object Image10: TImage
       Left = 0
