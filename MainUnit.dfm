@@ -27,6 +27,7 @@ object MainForm: TMainForm
     Color = 4471089
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 261
     object Btn_Exit: TSpeedButton
       Tag = 12
       Left = 243
@@ -465,17 +466,19 @@ object MainForm: TMainForm
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
+    ExplicitWidth = 261
+    ExplicitHeight = 522
     object PageContrl: TPageControl
       Left = 0
       Top = 0
-      Width = 273
-      Height = 530
+      Width = 267
+      Height = 526
       Align = alClient
       BiDiMode = bdRightToLeft
       ParentBiDiMode = False
       TabOrder = 0
-      ExplicitWidth = 267
-      ExplicitHeight = 526
+      ExplicitWidth = 261
+      ExplicitHeight = 522
     end
   end
   object MainMenu1: TMainMenu

@@ -270,7 +270,7 @@ procedure TMainForm.LoadINIData;
 var
   List                    : TStringList;
   hint, lnk, secname, exe : string;
-  iType, loc, i        : Integer;
+  iType, loc, i           : Integer;
   Item                    : TButtonItem;
 begin
   List                    := TStringList.Create;
