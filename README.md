@@ -34,3 +34,7 @@ Mark Key는 Windows 환경에서 실행되므로, 사용자는 적절한 버전�
 추가적인 정보나 지원이 필요하시면 언제든지 문의해주세요.
 
 
+![Main form design](https://github.com/yourGithubUsername/yourRepo/blob/main/path/to/pascal_icon.png)
+![Setup form design](https://github.com/yourGithubUsername/yourRepo/blob/main/path/to/pascal_icon.png)
+
+
