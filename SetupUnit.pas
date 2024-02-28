@@ -147,13 +147,26 @@ implementation
 
 
 
-
+{
+  모듈명: ChangeLabelOnMouseEnter
+  기능: Label 스타일 변경
+  작성일: 24.02.28
+  파라미터:
+    - Sender: 이벤트 발생 레이블 객체
+}
 procedure TSetupForm.ChangeLabelOnMouseEnter(Sender: TObject);
 begin
   TLabel(Sender).Font.Color := $000080FF;
   TLabel(Sender).Font.Style := [fsBold];
 end;
 
+{
+  모듈명: ChangeLabelOnMouseLeave
+  기능: 마우스가 Label을 벗어날 때 스타일 복귀
+  작성일: 24.02.28
+  파라미터:
+    - Sender: 이벤트 발생 레이블 객체
+}
 procedure TSetupForm.ChangeLabelOnMouseLeave(Sender: TObject);
 begin
   TLabel(Sender).Font.Color := clWhite;
@@ -163,10 +176,11 @@ end;
 
 procedure TSetupForm.FormCreate(Sender: TObject);
 var
-    i: Integer;
+  i: Integer;
 begin
   ChangeLabel;
 
+  // 핫키 설정
   SetLength(HotKeys, 3);
   HotKeys[0].ID := DEF_CTRL_Q; HotKeys[0].Key := 'Q';
   HotKeys[1].ID := DEF_CTRL_W; HotKeys[1].Key := 'W';
@@ -174,8 +188,10 @@ begin
 
   Reg := False;
   Key := False;
+
+  // 스타일 목록 추가
   for i := 0 to High(TStyleManager.StyleNames) do StyleList.Items.Add(TStyleManager.StyleNames[i]);
-(*
+(*  페이지 컨트롤 변경 처리
     for c := 0 to PageControl1.PageCount - 1 do
     begin
       self.PageControl1.Pages[c].TabVisible := False;
@@ -184,6 +200,13 @@ begin
 *)
 end;
 
+{
+  모듈명: UpdateHotKeys
+  기능: 핫키 등록 or 해제
+  작성일: 24.02.28
+  파라미터:
+    - Register: 핫키를 등록할지 또는 해제할지를 결정
+}
 procedure TSetupForm.UpdateHotKeys(Register: Boolean);
 var
   HotKey: THotKey;
@@ -216,6 +239,11 @@ begin
   Perform(wm_SysCommand, sc_DragMove, 0);
 end;
 
+{
+  모듈명: ChangeLabel
+  기능: 특정 Labeldp 마우스 진입 및 벗어남 이벤트
+  작성일: 24.02.28
+}
 procedure TSetupForm.ChangeLabel;
 var
   i: Integer;
@@ -410,6 +438,12 @@ begin
   self.AlphaBlendValue := TrackBar1.Position;
 end;
 
+{
+  모듈명   : AssignItemToForm
+  기능     : TButtonItem 객체의 정보를 폼에 할당
+  작성일   : 24.02.28
+  파라미터 : Item / 정보를 할당할 TButtonItem 객체
+}
 procedure TSetupForm.AssignItemToForm(Item: TButtonItem);
 begin
   ED_Name.Text          := Item.Caption;
@@ -420,6 +454,12 @@ begin
   CheckRadioButton(Item.iType);
 end;
 
+{
+    모듈명: CheckRadioButton
+      기능: 주어진 ItemType에 해당하는 라디오 버튼을 선택합니다.
+    작성일: 24.02.28
+  파라미터: ItemType / 선택할 라디오 버튼의 타입을 나타내는 정수입니다.
+}
 procedure TSetupForm.CheckRadioButton(ItemType: Integer);
 begin
   case ItemType of
@@ -431,6 +471,12 @@ begin
   end;
 end;
 
+{
+  모듈명   : ChangeSkin
+  기능     : 사용자의 선택에 따라 애플리케이션의 스킨 변경
+  작성일   : 24.02.28
+  파라미터 : 스킨 변경 요청 이벤트를 발생시킨 객체
+}
 procedure TSetupForm.ChangeSkin(Sender: TObject);
 var
   ini: TIniFile;
