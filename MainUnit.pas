@@ -88,6 +88,7 @@ uses SetupUnit, NetworkUnit;
 //
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
+  Application.OnMessage := OnAppMessage;
   RestoreApplication();
 	RegisterHotKeys();
 	SetAndCheckIEPath();
