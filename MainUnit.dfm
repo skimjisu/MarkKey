@@ -3,7 +3,7 @@ object MainForm: TMainForm
   Top = 0
   BorderIcons = []
   Caption = 'Mark delphi '
-  ClientHeight = 559
+  ClientHeight = 579
   ClientWidth = 267
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,7 +11,6 @@ object MainForm: TMainForm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  Menu = MainMenu1
   Position = poMainFormCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -220,6 +219,7 @@ object MainForm: TMainForm
       OnClick = ContactButton
     end
     object Btn_Nconfig: TSpeedButton
+      Tag = 6
       Left = 183
       Top = 0
       Width = 30
@@ -462,87 +462,23 @@ object MainForm: TMainForm
     Left = 0
     Top = 33
     Width = 267
-    Height = 526
+    Height = 546
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
     ExplicitWidth = 261
-    ExplicitHeight = 522
+    ExplicitHeight = 542
     object PageContrl: TPageControl
       Left = 0
       Top = 0
       Width = 267
-      Height = 526
+      Height = 546
       Align = alClient
       BiDiMode = bdRightToLeft
       ParentBiDiMode = False
       TabOrder = 0
       ExplicitWidth = 261
-      ExplicitHeight = 522
-    end
-  end
-  object MainMenu1: TMainMenu
-    Left = 48
-    Top = 232
-    object N3: TMenuItem
-      Caption = #54028#51068
-      object N8: TMenuItem
-        Caption = #54028#51068#50676#44592
-      end
-      object N9: TMenuItem
-        Caption = '-'
-      end
-      object N14: TMenuItem
-        Caption = #44288#47532#46020#44396
-        object N17: TMenuItem
-          Tag = 10
-          Caption = #50896#44201' '#45936#49828#53356#53681
-        end
-        object N18: TMenuItem
-          Tag = 20
-          Caption = #45348#53944#50892#53356' '#50672#44208
-        end
-        object N19: TMenuItem
-          Tag = 30
-          Caption = #51064#53552#45367' '#50741#49496
-        end
-        object N20: TMenuItem
-          Tag = 40
-          Caption = #54532#47196#44536#47016' '#52628#44032'/'#49325#51228
-        end
-        object N21: TMenuItem
-          Tag = 50
-          Caption = #46356#49828#54540#47112#51060
-        end
-        object N22: TMenuItem
-          Tag = 60
-          Caption = #45216#51676' '#48143' '#49884#44036
-        end
-      end
-      object N7: TMenuItem
-        Caption = '-'
-      end
-      object Quit1: TMenuItem
-        Caption = 'Quit'
-      end
-    end
-    object N4: TMenuItem
-      Caption = #45348#53944#50892#53356
-      object N5: TMenuItem
-        Caption = #45348#53944#50892#53356' '#51221#48372
-      end
-    end
-    object N1: TMenuItem
-      Caption = #49444#51221
-      object N2: TMenuItem
-        Caption = #54872#44221#49444#51221
-      end
-    end
-    object N6: TMenuItem
-      Caption = #46020#50880#47568
-      object Help1: TMenuItem
-        Caption = #46020#50880#47568
-      end
+      ExplicitHeight = 542
     end
   end
   object OpenDialog1: TOpenDialog

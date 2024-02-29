@@ -57,79 +57,60 @@ type
 
 
     IS_OK: Boolean;
-  end;
 
+  public
+    procedure CheckInput(Ed: TEdit; Msg: string);
+    procedure ClearFields;
+  end;
 var
   AddForm: TAddForm;
 
   procedure GetFileSysInfo(FileName: string; var FileInfo: TSHFileInfo);
   procedure GetExtNameFromSystemIcon(Ext: string; icon: TIcon);
 
+
 implementation
 
 {$R *.dfm}
 
+procedure TAddForm.ClearFields;
+begin
+  ED_LinkName.Clear;
+  ED_Hint.Clear;
+  ED_Name.Clear;
+  ED_ExeName.Clear;
+end;
+
+procedure TAddForm.CheckInput(Ed: TEdit; Msg: string);
+begin
+  if Trim(Ed.Text) = '' then raise Exception.Create(Msg);
+end;
+
 procedure TAddForm.Btn_AddOKClick(Sender: TObject);
 begin
-  if ED_Name.Text = '' then
-  begin
-    ShowMessage('이름을 입력하세요.');
-    Exit;
+  try
+    CheckInput(ED_Name, '이름을 입력하세요.');
+    CheckInput(ED_LinkName, '경로를 지정하세요.');
+    CheckInput(ED_Hint, '도움말을 입력하세요.');
+
+    if LB_LocList.ItemIndex = -1 then raise Exception.Create('위치를 선택 하세요');
+
+    IS_OK := True;
+  except
+    on E:Exception do
+    begin
+      ShowMessage(E.Message);
+      Exit;
+    end;
   end;
-  if ED_LinkName.Text = '' then
-  begin
-    ShowMessage('경로를 지정하세요.');
-    Exit;
-  end;
-  if ED_Hint.Text = '' then
-  begin
-    ShowMessage('도움말을 입력하세요.');
-    Exit;
-  end;
-  if LB_LocList.ItemIndex = -1 then
-  begin
-    ShowMessage('위치를 선택 하세요');
-    Exit;
-  end;
-  IS_OK := True;
+
   Close;
 end;
 
-(*
-  procedure TAddForm.Btn_AddOKClick(Sender: TObject);
-  begin
-    if ED_Name.Text = '' then
-    begin
-      Application.MessageBox('이름을 입력하세요.', '입력 오류', MB_OK or MB_ICONERROR);
-    end
-    else if ED_LinkName.Text = '' then
-    begin
-      Application.MessageBox('경로를 지정하세요.', '입력 오류', MB_OK or MB_ICONERROR);
-    end
-    else if ED_Hint.Text = '' then
-    begin
-      Application.MessageBox('도움말을 입력하세요.', '입력 오류', MB_OK or MB_ICONERROR);
-    end
-    else if LB_LocList.ItemIndex = -1 then
-    begin
-      Application.MessageBox('위치를 선택하세요.', '입력 오류', MB_OK or MB_ICONERROR);
-    end
-    else
-    begin
-      IS_OK := True;
-      Close;
-    end;
-  end;
-*)
-
-
 procedure TAddForm.Btn_CancelClick(Sender: TObject);
 begin
-  IS_OK             := False;
-  ED_LinkName.Text  := '';
-  ED_Hint.Text      := '';
-  ED_Name.Text      := '';
-  ED_ExeName.Text   := '';
+  IS_OK := False;
+  ClearFields;
   Close;
 end;
 

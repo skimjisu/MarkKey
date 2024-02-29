@@ -122,6 +122,11 @@
             <Form>RenameForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="NetworkUnit.pas">
+            <Form>NetworkForm</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="NetworkControl.pas"/>
         <RcItem Include="img\main.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>PngImage_1</ResourceId>

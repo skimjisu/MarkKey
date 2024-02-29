@@ -11,7 +11,9 @@ uses
   Vcl.Themes,
   Vcl.Styles,
   Unit1 in 'Unit1.pas' {Form1},
-  RenameUnit in 'RenameUnit.pas' {RenameForm};
+  RenameUnit in 'RenameUnit.pas' {RenameForm},
+  NetworkUnit in 'NetworkUnit.pas' {NetworkForm},
+  NetworkControl in 'NetworkControl.pas';
 
 {$R *.res}
 
@@ -24,5 +26,6 @@ begin
   Application.CreateForm(TAddForm, AddForm);
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TRenameForm, RenameForm);
+  Application.CreateForm(TNetworkForm, NetworkForm);
   Application.Run;
 end.

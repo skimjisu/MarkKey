@@ -4,8 +4,8 @@ object AddForm: TAddForm
   BorderIcons = []
   BorderStyle = bsNone
   Caption = 'AddForm'
-  ClientHeight = 474
-  ClientWidth = 321
+  ClientHeight = 471
+  ClientWidth = 307
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,14 +19,12 @@ object AddForm: TAddForm
   object AddPanel: TPanel
     Left = 0
     Top = 0
-    Width = 321
-    Height = 474
+    Width = 307
+    Height = 471
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 296
-    ExplicitHeight = 427
     object Btn_AddOK: TSpeedButton
-      Left = 152
+      Left = 144
       Top = 435
       Width = 57
       Height = 25
@@ -69,7 +67,7 @@ object AddForm: TAddForm
       OnClick = Btn_AddOKClick
     end
     object Btn_Cancel: TSpeedButton
-      Left = 226
+      Left = 218
       Top = 435
       Width = 57
       Height = 25
@@ -112,21 +110,21 @@ object AddForm: TAddForm
       OnClick = Btn_CancelClick
     end
     object Label1: TLabel
-      Left = 24
+      Left = 16
       Top = 20
       Width = 36
       Height = 15
       Caption = #51060'    '#47492
     end
     object Label3: TLabel
-      Left = 24
+      Left = 16
       Top = 47
       Width = 36
       Height = 15
       Caption = #46020#50880#47568
     end
     object LocList_Box: TGroupBox
-      Left = 24
+      Left = 16
       Top = 324
       Width = 273
       Height = 105
@@ -143,14 +141,13 @@ object AddForm: TAddForm
       end
     end
     object Drag_Box: TGroupBox
-      Left = 24
+      Left = 16
       Top = 257
       Width = 273
       Height = 61
       Caption = 'Drag_Drop'
       Enabled = False
       TabOrder = 1
-      Visible = False
       object Img_Icon: TImage
         Left = 5
         Top = 17
@@ -188,7 +185,7 @@ object AddForm: TAddForm
       end
     end
     object ED_Hint: TEdit
-      Left = 66
+      Left = 58
       Top = 44
       Width = 232
       Height = 23
@@ -196,7 +193,7 @@ object AddForm: TAddForm
       TabOrder = 2
     end
     object ED_Name: TEdit
-      Left = 66
+      Left = 58
       Top = 17
       Width = 232
       Height = 23
@@ -204,7 +201,7 @@ object AddForm: TAddForm
       TabOrder = 3
     end
     object ExeGroup: TGroupBox
-      Left = 24
+      Left = 16
       Top = 208
       Width = 274
       Height = 43
@@ -269,7 +266,7 @@ object AddForm: TAddForm
       end
     end
     object DefaultGroup: TGroupBox
-      Left = 24
+      Left = 16
       Top = 156
       Width = 274
       Height = 46
@@ -333,7 +330,7 @@ object AddForm: TAddForm
       end
     end
     object Type_Box: TGroupBox
-      Left = 24
+      Left = 16
       Top = 68
       Width = 274
       Height = 77

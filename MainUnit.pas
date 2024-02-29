@@ -21,25 +21,6 @@ type
     Btn_Nconfig: TSpeedButton;
     Btn_Open: TSpeedButton;
     Btn_Help: TSpeedButton;
-    MainMenu1: TMainMenu;
-    N3: TMenuItem;
-    N8: TMenuItem;
-    N9: TMenuItem;
-    N14: TMenuItem;
-    N17: TMenuItem;
-    N18: TMenuItem;
-    N19: TMenuItem;
-    N20: TMenuItem;
-    N21: TMenuItem;
-    N22: TMenuItem;
-    N7: TMenuItem;
-    Quit1: TMenuItem;
-    N4: TMenuItem;
-    N5: TMenuItem;
-    N1: TMenuItem;
-    N2: TMenuItem;
-    N6: TMenuItem;
-    Help1: TMenuItem;
     OpenDialog1: TOpenDialog;
     PageContrl: TPageControl;
     PopupMenu1: TPopupMenu;
@@ -103,7 +84,7 @@ implementation
 
 {$R *.dfm}
 
-uses SetupUnit;
+uses SetupUnit, NetworkUnit;
 //
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
@@ -407,6 +388,7 @@ begin
   b := Sender as TSpeedButton;
 
   case b.Tag of
+    6: NetworkForm.ShowModal;
     7: self.Align                     := alCustom;
     8: self.Align                     := alNone;
     9: Application.Minimize;
