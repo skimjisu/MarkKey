@@ -68,7 +68,7 @@ type
     GB_CapList  : TStringList;
     ini         : TIniFile;
     PageCount   : Integer;
-    IEPath      : string;
+    BrowserPath : String;
     GB_List     : array[0..9] of TGroupBox;
   end;
 
@@ -199,14 +199,46 @@ end;
 //IE , Firefox, Chrome, Edge, Opera Type 변경으로 진행 예정
 procedure TMainForm.SetAndCheckBrowser;
 var
-  IEPath: String;
+  PFPath : String;
+  Browsers: array[0..3] of string = ('\Internet Explorer\iexplore.exe',
+                                     '\Google\Chrome\Application\chrome.exe',
+                                     '\Microsoft\Edge\Application\msedge.exe',
+                                     '\Mozilla Firefox\firefox.exe');
+  i                   : Integer;
+  BrowserExists       : Boolean;
 begin
-  IEPath := GetSpecialFolderLocation(0, CSIDL_PROGRAM_FILES);
-  if (IEPath <> '') then
-    IEPath := IEPath + '\Internet Explorer\iexplore.exe';
-  if not FileExists(IEPath) then
+  PFPath := GetSpecialFolderLocation(0, CSIDL_PROGRAM_FILES);
+  BrowserExists := False;
+
+  if (PFPath <> '') then
+  begin
+    for i := 0 to 3 do
+    begin
+      BrowserPath     := PFPath + Browsers[i];
+      if FileExists(BrowserPath) then
+      begin
+        BrowserExists := True;
+        Break;
+      end;
+    end;
+  end;
+
+  if not BrowserExists then
     Application.Terminate;
 end;
+
+{
+  procedure TMainForm.SetAndCheckBrowser;
+  var
+    IEPath: String;
+  begin
+    IEPath := GetSpecialFolderLocation(0, CSIDL_PROGRAM_FILES);
+    if (IEPath <> '') then
+      IEPath := IEPath + '\Internet Explorer\iexplore.exe';
+    if not FileExists(IEPath) then
+      Application.Terminate;
+  end;
+}
 
 procedure TMainForm.InitializeComponents;
 begin
@@ -395,7 +427,7 @@ begin
   begin
     case Item.iType of
       0: ShellExecute(0, 'open', PChar(Item.Link), nil, nil, SW_SHOWNORMAL);
-      1: ShellExecute(0, 'open', PChar(IEPath), PChar(Item.Link), nil, SW_SHOWNORMAL);
+      1: ShellExecute(0, 'open', PChar(BrowserPath), PChar(Item.Link), nil, SW_SHOWNORMAL);
       2: ShellExecute(0, 'open', PChar(Item.Link), nil, nil, SW_SHOWNORMAL);
       3: ShellExecute(0, 'open', PChar(Item.Exe), PChar(Item.Link), nil, SW_SHOWNORMAL);
     end;
