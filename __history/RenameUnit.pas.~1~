@@ -1,0 +1,40 @@
+unit RenameUnit;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Buttons, Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TRenameForm = class(TForm)
+    Panel1: TPanel;
+    Edit1: TEdit;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  RenameForm: TRenameForm;
+
+implementation
+
+{$R *.dfm}
+
+procedure TRenameForm.SpeedButton1Click(Sender: TObject);
+begin
+  //
+end;
+
+procedure TRenameForm.SpeedButton2Click(Sender: TObject);
+begin
+  close;
+end;
+
+end.

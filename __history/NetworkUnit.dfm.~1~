@@ -1,0 +1,14 @@
+object NetworkForm: TNetworkForm
+  Left = 0
+  Top = 0
+  Caption = 'NetworkForm'
+  ClientHeight = 445
+  ClientWidth = 630
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+end

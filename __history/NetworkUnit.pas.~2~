@@ -1,0 +1,55 @@
+unit NetworkUnit;
+
+
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls;
+
+type
+  TNetworkForm = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function GetNetworkAdapterInfo: TStringList;
+  end;
+
+
+
+var
+  NetworkForm: TNetworkForm;
+
+
+implementation
+
+uses
+  IdStack, IdSocketHandle, IdUDPBase, IdBaseComponent, IdComponent, IdUDPClient, IdIPMCastClient;
+
+{$R *.dfm}
+
+
+function GetNetworkAdapterInfo: TStringList;
+var
+  IPMCastClient: TIdIPMCastClient;
+  I: Integer;
+begin
+  Result := TStringList.Create;
+  IPMCastClient := TIdIPMCastClient.Create(nil);
+  try
+    for I := 0 to IPMCastClient.Bindings.Count - 1 do
+    begin
+      Result.Add(Format('Adapter %d: IP %s, subnet mask %s',
+        [I, IPMCastClient.Bindings[I].IP, IPMCastClient.Bindings[I].SubNetMask]));
+    end;
+  finally
+    IPMCastClient.Free;
+  end;
+end;
+
+
+end.

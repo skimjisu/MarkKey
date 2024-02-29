@@ -1,0 +1,57 @@
+unit NetworkUnit;
+
+
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+
+type
+  TNetworkForm = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    function GetNetworkAdapterInfo: string;
+  end;
+
+
+
+var
+  NetworkForm: TNetworkForm;
+
+
+implementation
+
+uses
+  IdStack;
+
+{$R *.dfm}
+
+
+function GetNetworkAdapterInfo: string;
+var
+  AStack: TIdStack;
+  AList: TIdStackLocalAddressList;
+  I: Integer;
+begin
+  Result := '';
+  AStack := TIdStack.Create;
+  try
+    AList := AStack.LocalAddresses;
+    for I := 0 to AList.Count - 1 do
+    begin
+      if AList[I].IPVersion = Id_IPv4 then
+      begin
+        Result := Result + Format('Adapter %d: IP %s, subnet mask %s',
+          [I, AList[I].IPAddress, AList[I].SubNetMask]) + sLineBreak;
+      end;
+    end;
+  finally
+    AStack.Free;
+  end;
+end;
+
+end.

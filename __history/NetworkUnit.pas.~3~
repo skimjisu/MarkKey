@@ -1,0 +1,123 @@
+unit NetworkUnit;
+
+
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+
+type
+  TNetworkForm = class(TForm)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Memo1: TMemo;
+    procedure FormShow(Sender: TObject);
+
+  private
+    { Private declarations }
+   // function GetNetworkAdapterInfo: TStringList;
+  public
+    { Public declarations }
+
+  public
+
+  // function GetAdaptersInfo(pAdapterInfo: PIPAdapterInfo; var pOutBufLen: ULONG): DWORD; stdcall; external 'IPHLPAPI.DLL';
+  end;
+
+var
+  NetworkForm: TNetworkForm;
+
+
+implementation
+
+uses
+  WinSock, IPHlpApi;
+
+{$R *.dfm}
+
+const
+  MAX_ADAPTER_NAME_LENGTH = 260;
+  MAX_ADAPTER_DESCRIPTION_LENGTH = 128;
+  MAX_ADAPTER_ADDRESS_LENGTH = 8;
+
+type
+  PIP_ADDR_STRING = ^IP_ADDR_STRING;
+  IP_ADDR_STRING = packed record
+    Next: PIP_ADDR_STRING;
+    IpAddress: array[0..15] of AnsiChar;
+    IpMask: array[0..15] of AnsiChar;
+    Context: DWORD;
+  end;
+
+  PIP_ADAPTER_INFO = ^IP_ADAPTER_INFO;
+  IP_ADAPTER_INFO = packed record
+    Next: PIP_ADAPTER_INFO;
+    ComboIndex: DWORD;
+    AdapterName: array[0..MAX_ADAPTER_NAME_LENGTH + 3] of AnsiChar;
+    Description: array[0..MAX_ADAPTER_DESCRIPTION_LENGTH + 3] of AnsiChar;
+    AddressLength: UINT;
+    Address: array[0..MAX_ADAPTER_ADDRESS_LENGTH - 1] of BYTE;
+    Index: DWORD;
+    _Type: UINT;
+    DhcpEnabled: UINT;
+    CurrentIpAddress: PIP_ADDR_STRING;
+    IpAddressList: IP_ADDR_STRING;
+    GatewayList: IP_ADDR_STRING;
+    DhcpServer: IP_ADDR_STRING;
+    HaveWins: BOOL;
+    PrimaryWinsServer: IP_ADDR_STRING;
+    SecondaryWinsServer: IP_ADDR_STRING;
+    LeaseObtained: ULONG;
+    LeaseExpires: ULONG;
+  end;
+
+function GetAdaptersInfo(pAdapterInfo: PIP_ADAPTER_INFO; var pOutBufLen: ULONG): DWORD; stdcall; external 'Iphlpapi.dll';
+
+procedure TNetworkForm.FormShow(Sender: TObject);
+var
+  pAdapterInfo, pAdapter: PIP_ADAPTER_INFO;
+  pIPAddr: PIP_ADDR_STRING;
+  OutBufLen: ULONG;
+  Ret: DWORD;
+begin
+  Memo1.Lines.Clear;
+  OutBufLen := 0;
+  GetAdaptersInfo(nil, OutBufLen);
+  if OutBufLen > 0 then
+  begin
+    GetMem(pAdapterInfo, OutBufLen);
+    try
+      if GetAdaptersInfo(pAdapterInfo, OutBufLen) = NO_ERROR then
+      begin
+        pAdapter := pAdapterInfo;
+        while pAdapter <> nil do
+        begin
+          Memo1.Lines.Add('Adapter Name: ' + string(pAdapter^.AdapterName));
+          Memo1.Lines.Add('Adapter Description: ' + string(pAdapter^.Description));
+          pIPAddr := @pAdapter^.IpAddressList;
+          while pIPAddr <> nil do
+          begin
+            Memo1.Lines.Add('IP Address: ' + string(StrPas(pIPAddr^.IpAddress)));
+            Memo1.Lines.Add('IP Mask: ' + string(StrPas(pIPAddr^.IpMask)));
+            if pIPAddr^.Next <> nil then
+              pIPAddr := pIPAddr^.Next
+            else
+              Break;
+          end;
+          Memo1.Lines.Add('Gateway: ' + string(StrPas(pAdapter^.GatewayList.IpAddress)));
+          Memo1.Lines.Add('DHCP Server: ' + string(StrPas(pAdapter^.DhcpServer.IpAddress)));
+          Memo1.Lines.Add('---');
+          pAdapter := pAdapter^.Next;
+        end;
+      end
+      else
+        Memo1.Lines.Add('GetAdaptersInfo failed...');
+    finally
+      FreeMem(pAdapterInfo);
+    end;
+  end;
+end;
+
+end.

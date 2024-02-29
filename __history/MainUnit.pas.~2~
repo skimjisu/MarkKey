@@ -1,0 +1,433 @@
+unit MainUnit;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, ShlObj,
+  System.Contnrs, System.IniFiles, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Menus, Vcl.Buttons,
+  ShellAPI, Common;
+
+
+
+type
+  TMainForm = class(TForm)
+    Btn_Lock: TSpeedButton;
+    Btn_UnLock: TSpeedButton;
+    Btn_Minimize: TSpeedButton;
+    Btn_Tray: TSpeedButton;
+    SB_Setup: TSpeedButton;
+    Btn_Exit: TSpeedButton;
+    Btn_Nconfig: TSpeedButton;
+    Btn_Open: TSpeedButton;
+    Btn_Help: TSpeedButton;
+    MainMenu1: TMainMenu;
+    N3: TMenuItem;
+    N8: TMenuItem;
+    N9: TMenuItem;
+    N14: TMenuItem;
+    N17: TMenuItem;
+    N18: TMenuItem;
+    N19: TMenuItem;
+    N20: TMenuItem;
+    N21: TMenuItem;
+    N22: TMenuItem;
+    N7: TMenuItem;
+    Quit1: TMenuItem;
+    N4: TMenuItem;
+    N5: TMenuItem;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    N6: TMenuItem;
+    Help1: TMenuItem;
+    OpenDialog1: TOpenDialog;
+    PageContrl: TPageControl;
+    PopupMenu1: TPopupMenu;
+    N10: TMenuItem;
+    N16: TMenuItem;
+    N11: TMenuItem;
+    N12: TMenuItem;
+    N13: TMenuItem;
+    P_Btn_UP: TMenuItem;
+    N15: TMenuItem;
+    RunDeleyTimer: TTimer;
+    TrayIcon1: TTrayIcon;
+    navi_pn: TPanel;
+    Panel1: TPanel;
+    procedure FormCreate(Sender: TObject);
+    procedure BtnClick(Sender: TObject);
+    procedure ContactButton(Sender: TObject);
+    procedure FormDeactivate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure RestoreApplication;
+    procedure RegisterHotKeys;
+    procedure SetAndCheckIEPath;
+    procedure InitializeComponents;
+    procedure CreateTabSheets;
+    procedure AdjustResolution;
+    procedure LoadINIData;
+    procedure PaintBtnData;
+    procedure ClearAllComponents;
+    procedure CreateButtons(var Grp: array of Integer);
+    procedure CreateButtonInGroup(Item: TButtonItem; GB: TGroupBox; position: Integer);
+    procedure OnAppMessage(var msg: TMsg; var Handled: Boolean);
+    procedure ClearComponent(Component: TComponent);
+    function TagNumToBtnItem(num: Integer): TButtonItem;
+    procedure TrayIconRestore(Sender: TObject);    //
+    procedure TrayIconMinimize(Sender: TObject); 
+
+  public
+    BtnList     : TObjectList;
+    GB_CapList  : TStringList;
+    ini         : TIniFile;
+    PageCount   : Integer;
+    IEPath      : string;
+    GB_List     : array[0..9] of TGroupBox;
+  end;
+
+  const
+    DEF_CTRL_Q = $1234;
+    DEF_CTRL_W = $1235;
+    DEF_CTRL_E = $1236;
+    WM_USER_RUN = WM_USER + 1000;
+
+var
+  MainForm: TMainForm;
+
+implementation
+
+{$R *.dfm}
+
+uses SetupUnit;
+
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  RestoreApplication();
+	RegisterHotKeys();
+	SetAndCheckIEPath();
+	InitializeComponents();
+	AdjustResolution();
+end;
+
+procedure TMainForm.FormDeactivate(Sender: TObject);
+begin
+ SetWindowPos(Handle, HWND_TOPMOST, Left, Top, Width, Height, SWP_NOACTIVATE);
+end;
+
+procedure TMainForm.FormDestroy(Sender: TObject);
+begin
+  ini.Free;
+  BtnList.Free;
+  GB_CapList.Free;
+  { 
+  UnregisterHotKey(Handle, DEF_CTRL_Q);
+  UnregisterHotKey(Handle, DEF_CTRL_W);
+  UnregisterHotKey(Handle, DEF_CTRL_E);
+  }
+end;
+
+procedure TMainForm.TrayIconRestore(Sender: TObject);
+begin
+  TrayIcon1.Visible := False;
+  Self.Visible := True;
+end;
+
+procedure TMainForm.TrayIconMinimize(Sender: TObject);
+begin
+  TrayIcon1.Visible := True;
+  Self.Hide;
+end;
+
+
+procedure TMainForm.OnAppMessage(var msg: TMsg; var Handled: Boolean);
+begin
+  if msg.message = WM_USER_RUN then
+  begin
+    TrayIconRestore(nil);
+    SetForegroundWindow(Handle);
+  end;
+
+  if msg.message = WM_HOTKEY then
+  begin
+    case msg.wParam of
+      DEF_CTRL_Q: begin
+        Handled := True;
+        TrayIcon1.Visible := False;
+        Visible := True;
+        Application.Restore;
+        BringWindowToTop(Handle);
+        SetForegroundWindow(Handle);
+        SetActiveWindow(Handle);
+      end;
+
+      DEF_CTRL_E: begin
+        Application.Terminate;
+      end;
+
+      DEF_CTRL_W: begin
+        Handled := True;
+        TrayIconMinimize(nil);
+      end;
+    end;
+  end;
+end;
+
+procedure TMainForm.RestoreApplication;
+begin
+  Application.Restore;
+  SetForegroundWindow(Self.Handle);
+end;
+
+procedure TMainForm.RegisterHotKeys;
+const
+  hotKeyIds : array[0..2] of Integer = (DEF_CTRL_Q, DEF_CTRL_W, DEF_CTRL_E);
+  hotKeys   : array[0..2] of Char = ('Q', 'W', 'E');
+var
+  i: Integer;
+begin
+  for i := 0 to SizeOf(hotKeys) div SizeOf(Char) - 1 do
+    RegisterHotKey(Self.Handle, hotKeyIds[i], MOD_CONTROL, Ord(hotKeys[i]));
+end;
+
+procedure TMainForm.SetAndCheckIEPath;
+var
+  IEPath: String;
+begin
+  IEPath := GetSpecialFolderLocation(0, CSIDL_PROGRAM_FILES);
+  if (IEPath <> '') then
+    IEPath := IEPath + '\Internet Explorer\iexplore.exe';
+  if not FileExists(IEPath) then
+    Application.Terminate;
+end;
+
+procedure TMainForm.InitializeComponents;
+begin
+  BtnList         := TObjectList.Create;
+  ini             := TIniFile.Create(ChangeFileExt(Application.ExeName, '.ini'));
+  GB_CapList      := TStringList.Create;
+  PageCount       := ini.ReadInteger(SETUP_SEC_STR, 'PageCount', 0);
+  GB_CapList.Text := StringReplace(ini.ReadString(SETUP_SEC_STR, 'PageCaption', ''), '|', sLineBreak, [rfReplaceAll]);
+
+  if PageCount > 0 then
+  begin
+    CreateTabSheets;
+  end;
+  LoadINIData;
+  PaintBtnData;
+end;
+
+procedure TMainForm.CreateTabSheets;
+var
+  i       : Integer;
+  TSheet  : TTabSheet;
+  gb      : TGroupBox;
+begin
+  for i := 0 to PageCount - 1 do
+  begin
+    TSheet             := TTabSheet.Create(self);
+    TSheet.PageControl := PageContrl;
+    TSheet.Name        := 'TSheet' + IntToStr(i);
+    TSheet.Caption     := GB_CapList.Strings[i];
+
+    gb                 := TGroupBox.Create(TSheet);
+    gb.Parent          := TSheet;
+    gb.Align           := alClient;
+    GB_List[i]         := gb;
+
+    //TStyleManager.SetStyle(ini.ReadString('main', 'StyleNames', ''));
+  end;
+end;
+
+procedure TMainForm.AdjustResolution;
+const
+  designWidth = 1900;
+  designHeight = 1200;
+var
+  ScreenWidth, ScreenHeight: Integer;
+begin
+  ScreenWidth     := 1280;
+  ScreenHeight    := 1024;
+  if Screen.Width <= ScreenWidth then
+  begin
+    Scaled        := True;
+    Height        := Height * Screen.Height div designHeight;
+    Width         := Width * Screen.Width div designWidth;
+    ScaleBy(Screen.Width, designWidth);
+
+    // Force fit
+    Width         := Width * ScreenWidth div designWidth;
+    Height        := Height * ScreenHeight div designHeight;
+    ScaleBy(ScreenWidth, designWidth);
+  end;
+end;
+
+procedure TMainForm.LoadINIData;
+var
+  List                    : TStringList;
+  hint, lnk, secname, exe : string;
+  iType, loc, i           : Integer;
+  Item                    : TButtonItem;
+begin
+  List                    := TStringList.Create;
+  try
+    ini.ReadSections(List);
+    BtnList.Clear;
+    for i := 0 to List.Count - 1 do
+    begin
+      secname := List.Strings[i];
+      if (secname <> SETUP_SEC_STR) and (secname <> SETUP_SEC_STR) then
+      begin
+        hint          := ini.ReadString(secname, HINT_STR, '');
+        lnk           := ini.ReadString(secname, LINK_STR, '');
+        exe           := ini.ReadString(secname, EXE_STR, '');
+        iType      := ini.ReadInteger(secname, TYPE_STR, -1);
+        loc           := ini.ReadInteger(secname, LOC_STR, -1);
+        if (secname = '') and (iType = -1) and (loc = -1) then continue;
+        Item          := TButtonItem.Create;
+        Item.Caption  := secname;
+        Item.Hint     := hint;
+        Item.Link     := lnk;
+        Item.Exe      := exe;
+        Item.iType    := iType;
+        Item.Loc      := loc;
+        Item.Idx      := i;
+        BtnList.Add(Item);
+      end;
+    end;
+  finally
+    List.Free;
+  end;
+end;
+
+procedure TMainForm.PaintBtnData;
+var
+  Grp: array of Integer;
+  i: Integer;
+begin
+  SetLength(Grp, PageCount);
+  for i := 0 to PageCount - 1 do Grp[i] := 0;
+  ClearAllComponents;
+  CreateButtons(Grp);
+end;
+
+procedure TMainForm.ClearAllComponents;
+var
+  i: Integer;
+begin
+  for i := 0 to PageCount - 1 do
+  begin
+    ClearComponent(PageContrl.Pages[i].Components[0]);
+    ClearComponent(GB_List[i]);
+  end;
+end;
+
+procedure TMainForm.CreateButtons(var Grp: array of Integer);
+var
+  i     : Integer;
+  Item  : TButtonItem;
+  GB    : TGroupBox;
+begin
+  for i := 0 to BtnList.Count - 1 do
+  begin
+    Item  := TButtonItem(BtnList.Items[i]);
+    GB    := GB_List[Item.Loc];
+    if GB.ComponentCount >= MAX_BTN_COUNT then continue;
+    CreateButtonInGroup(Item, GB, Grp[Item.Loc]);
+    Inc(Grp[Item.Loc]);
+  end;
+end;
+
+procedure TMainForm.CreateButtonInGroup(Item: TButtonItem; GB: TGroupBox; position: Integer);
+var
+  B: TButton;
+begin
+  B           := TButton.Create(GB);
+  B.Parent    := GB;
+  B.Height    := 25;
+  B.Top       := (B.Height * position) + 7;
+  B.Width     := GB.ClientWidth - 20;
+  B.Left      := 10;
+  B.Caption   := Item.Caption;
+  B.ShowHint  := True;
+  B.Hint      := Item.Hint;
+  B.Tag       := Item.Idx;
+  B.OnClick   := BtnClick;
+end;
+
+procedure TMainForm.ClearComponent(Component: TComponent);
+begin
+  while Component.ComponentCount > 0 do
+    Component.Components[0].Free;
+end;
+
+function TMainForm.TagNumToBtnItem(num: Integer): TButtonItem;
+var
+  i          : Integer;
+  Item       : TButtonItem;
+begin
+  Result     := nil;
+
+  for i := 0 to BtnList.Count - 1 do
+  begin
+    Item     := TButtonItem(BtnList.Items[i]);
+    if Item.Idx = num then
+    begin
+      Result := Item;
+      Break;
+    end;
+  end;
+end;
+
+
+procedure TMainForm.BtnClick(Sender: TObject);
+var
+  Item: TButtonItem;
+begin
+  Item := TagNumToBtnItem((Sender as TButton).Tag);
+  if Assigned(Item) then
+  begin
+    case Item.iType of
+      0: ShellExecute(0, 'open', PChar(Item.Link), nil, nil, SW_SHOWNORMAL);
+      1: ShellExecute(0, 'open', PChar(IEPath), PChar(Item.Link), nil, SW_SHOWNORMAL);
+      2: ShellExecute(0, 'open', PChar(Item.Link), nil, nil, SW_SHOWNORMAL);
+      3: ShellExecute(0, 'open', PChar(Item.Exe), PChar(Item.Link), nil, SW_SHOWNORMAL);
+    end;
+  end;
+end;
+
+procedure TMainForm.ContactButton(Sender: TObject);
+var
+  b : TSpeedButton;
+begin
+  b := Sender as TSpeedButton;
+
+  case b.Tag of
+    7: self.Align                     := alCustom;
+    8: self.Align                     := alNone;
+    9: Application.Minimize;
+    10: TrayIconMinimize(nil);
+    11: begin
+      SetupForm.ini                   := Self.ini;
+      SetupForm.GB_CapList            := Self.GB_CapList;
+      SetupForm.LB_LocList.Items.Text := Self.GB_CapList.Text;
+      SetupForm.ShowModal;
+      LoadINIData;
+      PaintBtnData;
+    end;
+    12: Application.Terminate();
+  else
+    raise Exception.Create('Unknown Tag value: ' + IntToStr(b.Tag));
+  end;
+end;
+
+
+
+
+
+// Unit Closed.
+end.
