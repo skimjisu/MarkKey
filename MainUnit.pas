@@ -48,7 +48,7 @@ type
     procedure RestoreApplication;
     procedure HandleHotKeys(Register: Boolean);
    // procedure RegisterHotKeys;
-    procedure SetAndCheckIEPath;
+    procedure SetAndCheckBrowser;
     procedure InitializeComponents;
     procedure CreateTabSheets;
     procedure AdjustResolution;
@@ -94,7 +94,7 @@ begin
   RestoreApplication();
 	//RegisterHotKeys();
   HandleHotKeys(True);
-	SetAndCheckIEPath();
+	SetAndCheckBrowser();
 	InitializeComponents();
 	AdjustResolution();
 end;
@@ -120,7 +120,7 @@ end;
 procedure TMainForm.TrayIconRestore(Sender: TObject);
 begin
   TrayIcon1.Visible := False;
-  Self.Visible := True;
+  Self.Visible      := True;
 end;
 
 procedure TMainForm.TrayIconMinimize(Sender: TObject);
@@ -142,9 +142,9 @@ begin
   begin
     case msg.wParam of
       DEF_CTRL_Q: begin
-        Handled := True;
+        Handled           := True;
         TrayIcon1.Visible := False;
-        Visible := True;
+        Visible           := True;
         Application.Restore;
         BringWindowToTop(Handle);
         SetForegroundWindow(Handle);
@@ -172,16 +172,14 @@ end;
 procedure TMainForm.HandleHotKeys(Register: Boolean);
 const
   hotKeyIds : array[0..2] of Integer = (DEF_CTRL_Q, DEF_CTRL_W, DEF_CTRL_E);
-  hotKeys   : array[0..2] of Char = ('Q', 'W', 'E');
+  hotKeys   : array[0..2] of Char    = ('Q', 'W', 'E');
 var
-  i: Integer;
+  i         : Integer;
 begin
   for i := 0 to SizeOf(hotKeyIds) div SizeOf(Integer) - 1 do
   begin
-    if Register then
-      RegisterHotKey(Self.Handle, hotKeyIds[i], MOD_CONTROL, Ord(hotKeys[i]))
-    else
-      UnregisterHotKey(Self.Handle, hotKeyIds[i]);
+    if Register then RegisterHotKey(Self.Handle, hotKeyIds[i], MOD_CONTROL, Ord(hotKeys[i]))
+    else UnregisterHotKey(Self.Handle, hotKeyIds[i]);
   end;
 end;
 
@@ -198,7 +196,8 @@ end;
   end;
 }
 
-procedure TMainForm.SetAndCheckIEPath;
+//IE , Firefox, Chrome, Edge, Opera Type 변경으로 진행 예정
+procedure TMainForm.SetAndCheckBrowser;
 var
   IEPath: String;
 begin
@@ -249,7 +248,7 @@ end;
 
 procedure TMainForm.AdjustResolution;
 const
-  designWidth = 1900;
+  designWidth  = 1900;
   designHeight = 1200;
 var
   ScreenWidth, ScreenHeight: Integer;
@@ -310,8 +309,8 @@ end;
 
 procedure TMainForm.PaintBtnData;
 var
-  Grp: array of Integer;
-  i: Integer;
+  Grp : array of Integer;
+  i   : Integer;
 begin
   SetLength(Grp, PageCount);
   for i := 0 to PageCount - 1 do Grp[i] := 0;
@@ -365,8 +364,7 @@ end;
 
 procedure TMainForm.ClearComponent(Component: TComponent);
 begin
-  while Component.ComponentCount > 0 do
-    Component.Components[0].Free;
+  while Component.ComponentCount > 0 do Component.Components[0].Free;
 end;
 
 function TMainForm.TagNumToBtnItem(num: Integer): TButtonItem;
