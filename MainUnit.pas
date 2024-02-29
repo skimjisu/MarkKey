@@ -46,7 +46,8 @@ type
   public
     { Public declarations }
     procedure RestoreApplication;
-    procedure RegisterHotKeys;
+    procedure HandleHotKeys(Register: Boolean);
+   // procedure RegisterHotKeys;
     procedure SetAndCheckIEPath;
     procedure InitializeComponents;
     procedure CreateTabSheets;
@@ -89,8 +90,10 @@ uses SetupUnit, NetworkUnit;
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
   Application.OnMessage := OnAppMessage;
+
   RestoreApplication();
-	RegisterHotKeys();
+	//RegisterHotKeys();
+  HandleHotKeys(True);
 	SetAndCheckIEPath();
 	InitializeComponents();
 	AdjustResolution();
@@ -106,6 +109,7 @@ begin
   ini.Free;
   BtnList.Free;
   GB_CapList.Free;
+  HandleHotKeys(False);
   { 
   UnregisterHotKey(Handle, DEF_CTRL_Q);
   UnregisterHotKey(Handle, DEF_CTRL_W);
@@ -165,16 +169,34 @@ begin
   SetForegroundWindow(Self.Handle);
 end;
 
-procedure TMainForm.RegisterHotKeys;
+procedure TMainForm.HandleHotKeys(Register: Boolean);
 const
   hotKeyIds : array[0..2] of Integer = (DEF_CTRL_Q, DEF_CTRL_W, DEF_CTRL_E);
   hotKeys   : array[0..2] of Char = ('Q', 'W', 'E');
 var
   i: Integer;
 begin
-  for i := 0 to SizeOf(hotKeys) div SizeOf(Char) - 1 do
-    RegisterHotKey(Self.Handle, hotKeyIds[i], MOD_CONTROL, Ord(hotKeys[i]));
+  for i := 0 to SizeOf(hotKeyIds) div SizeOf(Integer) - 1 do
+  begin
+    if Register then
+      RegisterHotKey(Self.Handle, hotKeyIds[i], MOD_CONTROL, Ord(hotKeys[i]))
+    else
+      UnregisterHotKey(Self.Handle, hotKeyIds[i]);
+  end;
 end;
+
+{
+  procedure TMainForm.RegisterHotKeys;
+  const
+    hotKeyIds : array[0..2] of Integer = (DEF_CTRL_Q, DEF_CTRL_W, DEF_CTRL_E);
+    hotKeys   : array[0..2] of Char = ('Q', 'W', 'E');
+  var
+    i: Integer;
+  begin
+    for i := 0 to SizeOf(hotKeys) div SizeOf(Char) - 1 do
+      RegisterHotKey(Self.Handle, hotKeyIds[i], MOD_CONTROL, Ord(hotKeys[i]));
+  end;
+}
 
 procedure TMainForm.SetAndCheckIEPath;
 var
@@ -326,7 +348,7 @@ end;
 
 procedure TMainForm.CreateButtonInGroup(Item: TButtonItem; GB: TGroupBox; position: Integer);
 var
-  B: TButton;
+  B           : TButton;
 begin
   B           := TButton.Create(GB);
   B.Parent    := GB;
@@ -368,7 +390,7 @@ end;
 
 procedure TMainForm.BtnClick(Sender: TObject);
 var
-  Item: TButtonItem;
+  Item : TButtonItem;
 begin
   Item := TagNumToBtnItem((Sender as TButton).Tag);
   if Assigned(Item) then
